@@ -1,36 +1,40 @@
 package com.eni.lokacar.data.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Location {
     private int id;
     private ArrayList<String> photoAvant;
     private ArrayList<String> photoApres;
+    private Date dateDebut;
+    private Date dateFin;
     private Vehicule vehicule ;
     private Client client;
     private int nbJours;
     private Float prix;
-    private boolean isRendu;
 
-    public Location(int id, ArrayList<String> photoAvant, ArrayList<String> photoApres, Vehicule vehicule, Client client, int nbJours, Float prix, boolean isRendu) {
+    public Location(int id, ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, Vehicule vehicule, Client client, int nbJours, Float prix) {
         this.id = id;
         this.photoAvant = photoAvant;
         this.photoApres = photoApres;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.vehicule = vehicule;
         this.client = client;
         this.nbJours = nbJours;
         this.prix = prix;
-        this.isRendu = isRendu;
     }
 
-    public Location(ArrayList<String> photoAvant, ArrayList<String> photoApres, Vehicule vehicule, Client client, int nbJours, Float prix, boolean isRendu) {
+    public Location(ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, Vehicule vehicule, Client client, int nbJours, Float prix) {
         this.photoAvant = photoAvant;
         this.photoApres = photoApres;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.vehicule = vehicule;
         this.client = client;
         this.nbJours = nbJours;
         this.prix = prix;
-        this.isRendu = isRendu;
     }
 
     public int getId() {
@@ -55,6 +59,22 @@ public class Location {
 
     public void setPhotoApres(ArrayList<String> photoApres) {
         this.photoApres = photoApres;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
     public Vehicule getVehicule() {
@@ -87,13 +107,5 @@ public class Location {
 
     public void setPrix(Float prix) {
         this.prix = prix;
-    }
-
-    public boolean isRendu() {
-        return isRendu;
-    }
-
-    public void setRendu(boolean rendu) {
-        isRendu = rendu;
     }
 }

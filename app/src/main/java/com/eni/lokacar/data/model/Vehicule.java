@@ -13,8 +13,9 @@ public class Vehicule {
     private int critair;
     private boolean attelage;
     private boolean isCitadine;
+    private boolean isDispo;
 
-    public Vehicule(int id, String modele, String marque, String plaque, float prixJour, String photo, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine) {
+    public Vehicule(int id, String modele, String marque, String plaque, float prixJour, String photo, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine, boolean isDispo) {
         this.id = id;
         this.modele = modele;
         this.marque = marque;
@@ -27,9 +28,10 @@ public class Vehicule {
         this.critair = critair;
         this.attelage = attelage;
         this.isCitadine = isCitadine;
+        this.isDispo = isDispo;
     }
 
-    public Vehicule(String modele, String marque, String plaque, float prixJour, String photo, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine) {
+    public Vehicule(String modele, String marque, String plaque, float prixJour, String photo, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine, boolean isDispo) {
         this.modele = modele;
         this.marque = marque;
         this.plaque = plaque;
@@ -41,6 +43,7 @@ public class Vehicule {
         this.critair = critair;
         this.attelage = attelage;
         this.isCitadine = isCitadine;
+        this.isDispo = isDispo;
     }
 
     public int getId() {
@@ -137,5 +140,13 @@ public class Vehicule {
 
     public void setCitadine(boolean citadine) {
         isCitadine = citadine;
+    }
+
+    public boolean isDispo() {
+        return isDispo;
+    }
+
+    public void setDispo(boolean dispo) {
+        isDispo = dispo;
     }
 }
