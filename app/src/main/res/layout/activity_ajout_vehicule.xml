@@ -25,6 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/ajouter_un_vehicule"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarAjoutVehicule"
@@ -33,61 +34,62 @@
 
     <EditText
         android:id="@+id/editTextMarque"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/marque"
         android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarAjoutVehicule" />
 
     <EditText
         android:id="@+id/editTextModele"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/modele"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextMarque"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMarque" />
 
     <EditText
         android:id="@+id/editTextPlaque"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/plaque_d_immatriculation"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextModele"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextModele" />
 
     <EditText
         android:id="@+id/editTextPrixJour"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="Prix journalier"
+        android:hint="@string/prix_journalier"
         android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlaque" />
 
-    <Button
-        android:id="@+id/buttonValider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Valider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -101,55 +103,83 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Spinner
-                android:id="@+id/spinnerNbPortes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:spinnerMode="dialog"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/spinnerCritAir"
-                app:layout_constraintStart_toStartOf="@+id/spinnerCritAir"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerCritAir" />
-
-            <Spinner
-                android:id="@+id/spinnerNbPlaces"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/spinnerCritAir"
-                app:layout_constraintEnd_toEndOf="@+id/spinnerCarburant"
-                app:layout_constraintStart_toStartOf="@+id/spinnerCarburant"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerCarburant" />
-
-            <Spinner
-                android:id="@+id/spinnerCarburant"
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/spinnerNbPlaces"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCarburant"
+                app:layout_constraintStart_toEndOf="@+id/textViewCarburant"
+                app:layout_constraintTop_toTopOf="@+id/textViewCarburant"
+                tools:context="com.setspinnertextalignment_android_examples.com.MainActivity">
 
-            <Spinner
-                android:id="@+id/spinnerCritAir"
+                <Spinner
+                    android:id="@+id/spinnerCarburant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCritAir"
+                app:layout_constraintEnd_toEndOf="@+id/relativeLayout2"
+                app:layout_constraintStart_toStartOf="@+id/relativeLayout2"
+                app:layout_constraintTop_toTopOf="@+id/textViewCritAir"
+                tools:context="com.setspinnertextalignment_android_examples.com.MainActivity">
+
+                <Spinner
+                    android:id="@+id/spinnerCritAir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewNbPortes"
+                app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+                app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+                app:layout_constraintTop_toTopOf="@+id/textViewNbPortes"
+                tools:context="com.setspinnertextalignment_android_examples.com.MainActivity">
+
+                <Spinner
+                    android:id="@+id/spinnerNbPortes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/spinnerNbPortes"
-                app:layout_constraintEnd_toEndOf="@+id/spinnerNbPlaces"
-                app:layout_constraintStart_toStartOf="@+id/spinnerNbPlaces"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerNbPlaces" />
+                app:layout_constraintBottom_toBottomOf="@+id/textViewNbPlaces"
+                app:layout_constraintEnd_toEndOf="@+id/relativeLayout3"
+                app:layout_constraintStart_toStartOf="@+id/relativeLayout3"
+                app:layout_constraintTop_toTopOf="@+id/textViewNbPlaces"
+                tools:context="com.setspinnertextalignment_android_examples.com.MainActivity">
+
+                <Spinner
+                    android:id="@+id/spinnerNbPlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
 
             <Switch
                 android:id="@+id/switchCitadine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="Switch"
+                android:text="@string/citadine"
                 app:layout_constraintBottom_toTopOf="@+id/switchAttelage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -158,12 +188,77 @@
                 android:id="@+id/switchAttelage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Switch"
+                android:text="@string/attelage"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/switchCitadine"
                 app:layout_constraintTop_toBottomOf="@+id/switchCitadine" />
 
+            <TextView
+                android:id="@+id/textViewCritAir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Crit'Air :"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCarburant" />
+
+            <TextView
+                android:id="@+id/textViewCarburant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Carburant :"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewNbPortes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Portes :"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCritAir" />
+
+            <TextView
+                android:id="@+id/textViewNbPlaces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Places :"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNbPortes" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/buttonPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <ImageView
+        android:id="@+id/imageViewAjoutVoiture"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
