@@ -18,4 +18,6 @@
     <string name="nom_client">Nom client</string>
     <string name="t_l_phone_mobile">Téléphone mobile</string>
     <string name="valider">Valider</string>
+    <string name="photo">Photo</string>
+    <string name="_0_photos_charg_s">0 Photos chargé(s)</string>
 </resources>

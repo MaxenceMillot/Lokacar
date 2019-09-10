@@ -19,7 +19,7 @@ public interface ClientDAO {
     Client getClientById(int id);
 
     @Insert
-    void  insert(Client client);
+    long  insert(Client client);
 
     @Insert
     void insertAll(Client... client);
