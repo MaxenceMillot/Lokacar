@@ -1,5 +1,6 @@
 package com.eni.lokacar.data.dal.dao;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -11,6 +12,7 @@ import com.eni.lokacar.data.model.Vehicule;
 
 import java.util.List;
 
+@Dao
 public interface LocationDAO {
     @Query("SELECT * FROM Location" +
             " WHERE vehicule = :vehicule" +

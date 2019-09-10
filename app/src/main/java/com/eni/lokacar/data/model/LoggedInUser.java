@@ -1,10 +1,12 @@
 package com.eni.lokacar.data.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
  */
 public class LoggedInUser {
-
     private String userId;
     private String displayName;
 

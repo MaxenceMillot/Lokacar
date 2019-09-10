@@ -2,6 +2,7 @@ package com.eni.lokacar.data.dal;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.eni.lokacar.data.dal.dao.ClientDAO;
 import com.eni.lokacar.data.dal.dao.LocationDAO;
@@ -11,6 +12,7 @@ import com.eni.lokacar.data.model.Location;
 import com.eni.lokacar.data.model.Vehicule;
 
 @Database(entities = {Vehicule.class, Location.class, Client.class}, version= 1)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ClientDAO clientDAO();
     public abstract LocationDAO locationDAO();

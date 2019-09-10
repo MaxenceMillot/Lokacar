@@ -1,9 +1,14 @@
 package com.eni.lokacar.data.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity
 public class Location {
+    @PrimaryKey
     private int id;
     private ArrayList<String> photoAvant;
     private ArrayList<String> photoApres;
@@ -13,18 +18,6 @@ public class Location {
     private Client client;
     private int nbJours;
     private Float prix;
-
-    public Location(int id, ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, Vehicule vehicule, Client client, int nbJours, Float prix) {
-        this.id = id;
-        this.photoAvant = photoAvant;
-        this.photoApres = photoApres;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.vehicule = vehicule;
-        this.client = client;
-        this.nbJours = nbJours;
-        this.prix = prix;
-    }
 
     public Location(ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, Vehicule vehicule, Client client, int nbJours, Float prix) {
         this.photoAvant = photoAvant;
