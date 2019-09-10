@@ -1,38 +1,37 @@
 package com.eni.lokacar.data.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity
 public class Location {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "location_id")
     private int id;
+    @Embedded(prefix = "loc_")
+    private Vehicule vehicule;
+    @Embedded(prefix = "loc_")
+    private Client client;
     private ArrayList<String> photoAvant;
     private ArrayList<String> photoApres;
     private Date dateDebut;
     private Date dateFin;
-    private Vehicule vehicule ;
-    private Client client;
     private int nbJours;
     private Float prix;
 
-    public Location(int id, ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, Vehicule vehicule, Client client, int nbJours, Float prix) {
-        this.id = id;
+    public Location(Vehicule vehicule, Client client, ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, int nbJours, Float prix) {
+        this.vehicule = vehicule;
+        this.client = client;
         this.photoAvant = photoAvant;
         this.photoApres = photoApres;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.vehicule = vehicule;
-        this.client = client;
-        this.nbJours = nbJours;
-        this.prix = prix;
-    }
-
-    public Location(ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, Vehicule vehicule, Client client, int nbJours, Float prix) {
-        this.photoAvant = photoAvant;
-        this.photoApres = photoApres;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.vehicule = vehicule;
-        this.client = client;
         this.nbJours = nbJours;
         this.prix = prix;
     }
@@ -77,22 +76,6 @@ public class Location {
         this.dateFin = dateFin;
     }
 
-    public Vehicule getVehicule() {
-        return vehicule;
-    }
-
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public int getNbJours() {
         return nbJours;
     }
@@ -107,5 +90,21 @@ public class Location {
 
     public void setPrix(Float prix) {
         this.prix = prix;
+    }
+
+    public Vehicule getVehicule() {
+        return vehicule;
+    }
+
+    public void setVehicule(Vehicule vehicule) {
+        this.vehicule = vehicule;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

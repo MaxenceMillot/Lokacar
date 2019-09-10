@@ -1,17 +1,19 @@
 package com.eni.lokacar.data.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Client {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "client_id")
     private int id;
     private String nom;
     private String prenom;
     private String telephone;
-
-    public Client(int id, String nom, String prenom, String telephone) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.telephone = telephone;
-    }
 
     public Client(String nom, String prenom, String telephone) {
         this.nom = nom;
@@ -50,4 +52,5 @@ public class Client {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
 }
