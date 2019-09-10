@@ -103,7 +103,7 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_liste_article_activity, menu);
+        //getMenuInflater().inflate(R.menu.menu_liste_vehicule_activity, menu);
         return true;
     }
 
