@@ -13,64 +13,53 @@ import java.util.List;
 @Dao
 public interface VehiculeDAO {
 
+    @Query("SELECT * FROM Vehicule")
+    List<Vehicule> getAll();
     // dispo
     @Query("SELECT * FROM Vehicule" +
-            " WHERE isDispo = :isDispo" +
+            " WHERE isDispo = 1" +
+            " AND isCitadine = :isCitadine" +
             " AND prixJour >= :prixMin" +
             " AND prixJour <= :prixMax" +
             " AND nbPlace >= :placesMin" +
             " AND nbPlace <= :placesMax" +
             " AND nbPorte >= :portesMin" +
             " AND nbPorte <= :portesMax" +
-            " AND carburant = :carburant" +
+            " AND carburant LIKE :carburant" +
             " AND critair <= :critair")
-    List<Vehicule> getAllDispo(Boolean isDispo, int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair);
+    List<Vehicule> getFilterDispo(int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair, boolean isCitadine);
 
     // dispo + attelage
     @Query("SELECT * FROM Vehicule" +
-            " WHERE isDispo = :isDispo" +
-            " AND attelage = :attelage" +
-            " AND prixJour >= :prixMin" +
-            " AND prixJour <= :prixMax" +
-            " AND nbPlace >= :placesMin" +
-            " AND nbPlace <= :placesMax" +
-            " AND nbPorte >= :portesMin" +
-            " AND nbPorte <= :portesMax" +
-            " AND carburant = :carburant" +
-            " AND critair <= :critair")
-    List<Vehicule> getAllDispoAttelage(Boolean isDispo, int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair, Boolean attelage);
-
-    // dispo + citadine
-    @Query("SELECT * FROM Vehicule" +
-            " WHERE isDispo = :isDispo" +
+            " WHERE isDispo = 1" +
             " AND isCitadine = :isCitadine" +
+            " AND attelage = 1" +
             " AND prixJour >= :prixMin" +
             " AND prixJour <= :prixMax" +
             " AND nbPlace >= :placesMin" +
             " AND nbPlace <= :placesMax" +
             " AND nbPorte >= :portesMin" +
             " AND nbPorte <= :portesMax" +
-            " AND carburant = :carburant" +
+            " AND carburant LIKE :carburant" +
             " AND critair <= :critair")
-    List<Vehicule> getAllDispoCitadine(Boolean isDispo, int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair, Boolean isCitadine);
+    List<Vehicule> getFilterAttelage(int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair, boolean isCitadine);
 
-    // dispo + attelage + citadine
+
+    // dispo
     @Query("SELECT * FROM Vehicule" +
-            " WHERE isDispo = :isDispo" +
-            " AND attelage = :attelage" +
-            " AND isCitadine = :isCitadine" +
+            " WHERE isDispo = 0" +
             " AND prixJour >= :prixMin" +
             " AND prixJour <= :prixMax" +
             " AND nbPlace >= :placesMin" +
             " AND nbPlace <= :placesMax" +
             " AND nbPorte >= :portesMin" +
             " AND nbPorte <= :portesMax" +
-            " AND carburant = :carburant" +
+            " AND carburant LIKE :carburant" +
             " AND critair <= :critair")
-    List<Vehicule> getAllDispoAttelageCitadine(Boolean isDispo, int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair, Boolean attelage, Boolean isCitadine);
+    List<Vehicule> getFilterIndispo(int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair);
 
     @Insert
-    void insert(Vehicule vehicule);
+    long insert(Vehicule vehicule);
 
     @Insert
     void insertAll(Vehicule... vehicule);

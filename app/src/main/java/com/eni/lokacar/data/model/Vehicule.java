@@ -1,11 +1,13 @@
 package com.eni.lokacar.data.model;
 
 import androidx.room.Entity;
+import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Vehicule {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "vehicule_id")
     private int id;
     private String modele;
     private String marque;
@@ -19,7 +21,6 @@ public class Vehicule {
     private boolean attelage;
     private boolean isCitadine;
     private boolean isDispo;
-
 
     public Vehicule(String modele, String marque, String plaque, float prixJour, String photo, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine, boolean isDispo) {
         this.modele = modele;
@@ -139,4 +140,5 @@ public class Vehicule {
     public void setDispo(boolean dispo) {
         isDispo = dispo;
     }
+
 }
