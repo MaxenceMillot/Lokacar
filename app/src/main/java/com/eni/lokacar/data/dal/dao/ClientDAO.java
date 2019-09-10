@@ -12,11 +12,18 @@ public interface ClientDAO {
     @Query("SELECT * FROM Client")
     List<Client> getAll();
 
+    @Query("SELECT * FROM Client" +
+            " WHERE id = :id")
+    List<Client> getCLientById(int id);
+
     @Insert
     void  insert(Client client);
 
     @Insert
     void insertAll(Client... client);
+
+    @Insert
+    void updateClient(Client... client);
 
     @Delete
     void delete(Client client);

@@ -3,6 +3,7 @@ package com.eni.lokacar.data.dal.dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.eni.lokacar.data.model.Vehicule;
 
@@ -71,6 +72,9 @@ public interface VehiculeDAO {
 
     @Insert
     void insertAll(Vehicule... vehicule);
+
+    @Update
+    void updateVehicule(Vehicule... vehicule);
 
     @Delete
     void delete(Vehicule vehicule);
