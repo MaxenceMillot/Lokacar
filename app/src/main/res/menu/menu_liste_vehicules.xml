@@ -3,10 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menuSwitchDispo"
+        android:checked="true"
+        android:icon="@drawable/ic_directions_car_green_24dp"
+        android:title="switchDispo"
+        app:actionLayout="@layout/switch_item"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/Filtres"
         android:icon="@drawable/ic_filter_list_white_24dp"
         android:title="Filtres"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/ChiffreAffaire"
         android:icon="@drawable/ic_monetization_on_white_24dp"

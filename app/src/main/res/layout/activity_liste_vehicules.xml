@@ -10,14 +10,15 @@
         android:id="@+id/cardViewFilterListeArticles"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarListeVehicules">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <Spinner
                 android:id="@+id/spinnerCarburant"
@@ -37,7 +38,7 @@
                 android:id="@+id/switchAttelage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
                 android:scaleX="1.5"
@@ -46,14 +47,14 @@
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/rangebarNbPortes"
-                app:layout_constraintTop_toBottomOf="@+id/rangebarNbPortes" />
+                app:layout_constraintTop_toBottomOf="@+id/rangebarPrixJour" />
 
             <Switch
                 android:id="@+id/switchCitadine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:elegantTextHeight="true"
                 android:scaleX="1.5"
@@ -65,7 +66,7 @@
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/rangebarNbPortes"
-                app:layout_constraintTop_toBottomOf="@+id/rangebarNbPortes" />
+                app:layout_constraintTop_toBottomOf="@+id/rangebarPrixJour" />
 
             <TextView
                 android:id="@+id/textViewCarburant"
@@ -82,9 +83,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/rangebarNbPortes"
                 app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/rangebarNbPortes"
                 app:layout_constraintTop_toBottomOf="@+id/spinnerCarburant"
                 app:mrb_barWeight="2dp"
                 app:mrb_connectingLineWeight="4dp"
@@ -98,7 +99,7 @@
                 app:mrb_rightSelectorColor="@color/colorPrimary"
                 app:mrb_selectorBoundarySize="2dp"
                 app:mrb_selectorSize="10dp"
-                app:mrb_temporaryPins="true"
+                app:mrb_temporaryPins="false"
                 app:mrb_tickDefaultLabel="label"
                 app:mrb_tickEnd="5"
                 app:mrb_tickHeight="4dp"
@@ -109,39 +110,10 @@
             <com.appyvet.materialrangebar.RangeBar
                 android:id="@+id/rangebarNbPortes"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/rangebarNbPlaces"
-                app:mrb_barWeight="2dp"
-                app:mrb_connectingLineWeight="4dp"
-                app:mrb_leftSelectorColor="@color/colorPrimary"
-                app:mrb_pinColor="@color/colorPrimary"
-                app:mrb_pinMaxFont="15sp"
-                app:mrb_pinMinFont="12sp"
-                app:mrb_pinRadius="14dp"
-                app:mrb_rangeBar="true"
-                app:mrb_rangeBarPaddingBottom="30dp"
-                app:mrb_rangeBar_rounded="true"
-                app:mrb_rightSelectorColor="@color/colorPrimary"
-                app:mrb_selectorBoundarySize="2dp"
-                app:mrb_selectorSize="10dp"
-                app:mrb_temporaryPins="true"
-                app:mrb_tickDefaultLabel="label"
-                app:mrb_tickEnd="8"
-                app:mrb_tickHeight="4dp"
-                app:mrb_tickInterval="1"
-                app:mrb_tickLabelSize="4sp"
-                app:mrb_tickStart="1" />
-
-            <com.appyvet.materialrangebar.RangeBar
-                android:id="@+id/rangebarNbPlaces"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/rangebarNbPlaces"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="@+id/rangebarNbPlaces"
                 app:layout_constraintTop_toBottomOf="@+id/rangebarCritAir"
                 app:mrb_barWeight="2dp"
                 app:mrb_connectingLineWeight="4dp"
@@ -156,7 +128,7 @@
                 app:mrb_rightSelectorColor="@color/colorPrimary"
                 app:mrb_selectorBoundarySize="2dp"
                 app:mrb_selectorSize="10dp"
-                app:mrb_temporaryPins="true"
+                app:mrb_temporaryPins="false"
                 app:mrb_tickDefaultLabel="label"
                 app:mrb_tickEnd="6"
                 app:mrb_tickHeight="4dp"
@@ -164,13 +136,70 @@
                 app:mrb_tickLabelSize="4sp"
                 app:mrb_tickStart="2" />
 
+            <com.appyvet.materialrangebar.RangeBar
+                android:id="@+id/rangebarNbPlaces"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/rangebarPrixJour"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="@+id/rangebarPrixJour"
+                app:layout_constraintTop_toBottomOf="@+id/rangebarNbPortes"
+                app:mrb_barWeight="2dp"
+                app:mrb_connectingLineWeight="4dp"
+                app:mrb_leftSelectorColor="@color/colorPrimary"
+                app:mrb_pinColor="@color/colorPrimary"
+                app:mrb_pinMaxFont="15sp"
+                app:mrb_pinMinFont="12sp"
+                app:mrb_pinRadius="14dp"
+                app:mrb_rangeBar="true"
+                app:mrb_rangeBarPaddingBottom="30dp"
+                app:mrb_rangeBar_rounded="true"
+                app:mrb_rightSelectorColor="@color/colorPrimary"
+                app:mrb_selectorBoundarySize="2dp"
+                app:mrb_selectorSize="10dp"
+                app:mrb_temporaryPins="false"
+                app:mrb_tickDefaultLabel="label"
+                app:mrb_tickEnd="9"
+                app:mrb_tickHeight="4dp"
+                app:mrb_tickInterval="1"
+                app:mrb_tickLabelSize="4sp"
+                app:mrb_tickStart="1" />
+
+            <com.appyvet.materialrangebar.RangeBar
+                android:id="@+id/rangebarPrixJour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewPrixJour"
+                app:layout_constraintTop_toBottomOf="@+id/rangebarNbPlaces"
+                app:mrb_barWeight="2dp"
+                app:mrb_connectingLineWeight="4dp"
+                app:mrb_leftSelectorColor="@color/colorPrimary"
+                app:mrb_pinColor="@color/colorPrimary"
+                app:mrb_pinMaxFont="15sp"
+                app:mrb_pinMinFont="12sp"
+                app:mrb_pinRadius="14dp"
+                app:mrb_rangeBar="true"
+                app:mrb_rangeBarPaddingBottom="30dp"
+                app:mrb_rangeBar_rounded="true"
+                app:mrb_rightSelectorColor="@color/colorPrimary"
+                app:mrb_selectorBoundarySize="2dp"
+                app:mrb_selectorSize="10dp"
+                app:mrb_temporaryPins="false"
+                app:mrb_tickDefaultLabel="label"
+                app:mrb_tickEnd="100"
+                app:mrb_tickHeight="4dp"
+                app:mrb_tickInterval="10"
+                app:mrb_tickLabelSize="4sp"
+                app:mrb_tickStart="10" />
+
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="33dp"
                 android:text="Crit'Air :"
                 app:layout_constraintBottom_toBottomOf="@+id/rangebarCritAir"
                 app:layout_constraintStart_toStartOf="parent"
@@ -178,27 +207,33 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginBottom="35dp"
                 android:text="Portes :"
-                app:layout_constraintBottom_toBottomOf="@+id/rangebarNbPlaces"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/rangebarNbPlaces" />
+                app:layout_constraintBottom_toTopOf="@+id/rangebarNbPlaces"
+                app:layout_constraintEnd_toEndOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/rangebarNbPortes" />
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginBottom="22dp"
                 android:text="Places :"
-                app:layout_constraintBottom_toBottomOf="@+id/rangebarNbPortes"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/rangebarNbPortes" />
+                app:layout_constraintBottom_toTopOf="@+id/rangebarPrixJour"
+                app:layout_constraintEnd_toEndOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="@+id/rangebarNbPlaces" />
+
+            <TextView
+                android:id="@+id/textViewPrixJour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Prix :"
+                app:layout_constraintBottom_toBottomOf="@+id/rangebarPrixJour"
+                app:layout_constraintEnd_toEndOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/rangebarPrixJour" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

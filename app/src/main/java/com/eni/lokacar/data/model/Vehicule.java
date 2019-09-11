@@ -179,6 +179,7 @@ public class Vehicule implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(modele);
         parcel.writeString(marque);
         parcel.writeString(plaque);
