@@ -3,10 +3,14 @@ package com.eni.lokacar.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.room.Room;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,12 +28,14 @@ import com.eni.lokacar.data.model.Location;
 import com.eni.lokacar.data.model.Vehicule;
 
 import java.math.RoundingMode;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class AjoutLocationActivity extends AppCompatActivity {
     private static final String TAG = "AjoutLocationActivity";
+    public static final int REQUEST_CODE = 42;
     private AppDatabase db = null;
 
     EditText editTextNom;
@@ -40,7 +46,9 @@ public class AjoutLocationActivity extends AppCompatActivity {
     TextView textViewNbPhotos;
     ArrayList<String> listePhotos = new ArrayList<>();
 
-    Vehicule vehiculeExtra = getIntent().getParcelableExtra("Vehicule");
+    private Vehicule vehiculeExtra;
+    private Client client;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,14 +101,44 @@ public class AjoutLocationActivity extends AppCompatActivity {
                 }
                 DecimalFormat df = new DecimalFormat("##.##");
                 df.setRoundingMode(RoundingMode.DOWN);
-                float prix = Float.parseFloat(df.format(vehiculeExtra.getPrixJour()*nbJours));
-
+                float prix = Float.parseFloat(df.format(vehiculeExtra.getPrixJour()*nbJours).replace(",", "."));
                 textViewCalculPrix.setText("Prix total: "+prix+"€");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {}
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                    SmsManager manager = SmsManager.getDefault();
+                    manager.sendTextMessage(
+                            client.getTelephone(),
+                            null,
+                            "Bonjour "+ client.getPrenom()+ " "+client.getNom()+", votre location chez Lokacar à été validé. \nVous avez réservé une "+
+                                    vehiculeExtra.getMarque()+ " "+vehiculeExtra.getModele()+" pour une durée de "+location.getNbJours()+" à compter du "+
+                                    dateFormat.format(location.getDateDebut())+".\n\n"+
+                                    "Tout retard sera majoré à la journée.\n\n"+
+                                    "Bonne route.",
+                            null, null);
+
+                    Intent intentStartActivity = new Intent(AjoutLocationActivity.this, ListeVehiculesActivity.class);
+                    startActivity(intentStartActivity);
+                    Toast.makeText(AjoutLocationActivity.this, "Location créée", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intentStartActivity = new Intent(AjoutLocationActivity.this, ListeVehiculesActivity.class);
+                    startActivity(intentStartActivity);
+                    Toast.makeText(AjoutLocationActivity.this, "Location créée", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
 
     @Override
@@ -113,12 +151,13 @@ public class AjoutLocationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menuItemValider){
             // TODO CHECK FIELDS INTEGRITY
+            // issou
 
-            // CREATE Client
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Client client = new Client(editTextNom.getText().toString(), editTextPrenom.getText().toString(), editTextTelephone.getText().toString());
+                    // CREATE Client
+                    client = new Client(editTextNom.getText().toString(), editTextPrenom.getText().toString(), editTextTelephone.getText().toString());
                     long clientId = db.clientDAO().insert(client);
                     client.setId(((int) clientId));
 
@@ -126,8 +165,8 @@ public class AjoutLocationActivity extends AppCompatActivity {
                     int nbJours = Integer.parseInt(editTextNbJours.getText().toString());
                     DecimalFormat df = new DecimalFormat("##.##");
                     df.setRoundingMode(RoundingMode.DOWN);
-                    float prix = Float.parseFloat(df.format(vehiculeExtra.getPrixJour()*nbJours));
-                    Location location = new Location(
+                    float prix = Float.parseFloat(df.format(vehiculeExtra.getPrixJour()*nbJours).replace(",", "."));
+                    location = new Location(
                             vehiculeExtra,
                             client,
                             listePhotos,
@@ -139,13 +178,10 @@ public class AjoutLocationActivity extends AppCompatActivity {
                     );
                     long idLocation = db.locationDAO().insert(location);
 
+                    // Confirmation par SMS
+                    ActivityCompat.requestPermissions(AjoutLocationActivity.this,new String[]{Manifest.permission.SEND_SMS}, REQUEST_CODE);
                 }
             }).start();
-
-            // TODO start ListActivity + Toast Message
-            Intent intentStartActivity = new Intent(this, MainActivity.class);
-            startActivity(intentStartActivity);
-            Toast.makeText(this, "Location créée !", Toast.LENGTH_LONG).show();
         }
         return false;
     }
