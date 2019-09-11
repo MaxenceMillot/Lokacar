@@ -71,7 +71,6 @@ public class DetailLocationActivity extends AppCompatActivity {
                 // Database query
                 // TODO replace id with vehiculeExtra.getId();
                final Location location = db.locationDAO().getLastByVehicule(1);
-                Log.i(TAG, "LOG-- locationId:"+location.getId()+ "|Client:"+location.getClient().getPrenom()+"|prix:"+location.getPrix()+"|date:"+location.getDateDebut().toString());
                 DetailLocationActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
