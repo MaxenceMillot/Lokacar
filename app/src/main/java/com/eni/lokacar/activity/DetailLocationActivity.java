@@ -16,6 +16,9 @@ import com.eni.lokacar.data.dal.AppDatabase;
 import com.eni.lokacar.data.model.Location;
 import com.eni.lokacar.data.model.Vehicule;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class DetailLocationActivity extends AppCompatActivity {
     private static final String TAG = "DetailLocationActivity";
     private AppDatabase db = null;
@@ -72,8 +75,9 @@ public class DetailLocationActivity extends AppCompatActivity {
                 DetailLocationActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //TODO Affichage textviews
-                        textViewDateDebut.setText(location.getDateDebut().toString());
+                        // Affichage textviews
+                        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                        textViewDateDebut.setText(dateFormat.format(location.getDateDebut()));
                         textViewNbJours.setText(String.valueOf(location.getNbJours())+" jours");
                         textViewPrix.setText((String.valueOf(location.getPrix()))+"€");
                         textViewNomClient.setText(location.getClient().getNom());
