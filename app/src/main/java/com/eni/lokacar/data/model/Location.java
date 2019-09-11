@@ -1,9 +1,8 @@
 package com.eni.lokacar.data.model;
 
+import androidx.room.Entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;

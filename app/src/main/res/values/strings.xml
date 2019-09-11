@@ -19,4 +19,15 @@
     <string name="prix_journalier">Prix journalier</string>
     <string name="valider">Valider</string>
     <string name="attelage">Attelage</string>
+    <string name="connexion">Connexion</string>
+    <string name="ajout_location">Ajout Location</string>
+    <string name="dur_e_en_jours">Durée en jours</string>
+    <string name="prenom_client">Prenom client</string>
+    <string name="nom_client">Nom client</string>
+    <string name="t_l_phone_mobile">Téléphone mobile</string>
+    <string name="valider">Valider</string>
+    <string name="photo">Photo</string>
+    <string name="_0_photos_charg_s">0 Photos chargé(s)</string>
+    <string name="prix">Prix:</string>
+    <string name="prix_total">Prix total:</string>
 </resources>
