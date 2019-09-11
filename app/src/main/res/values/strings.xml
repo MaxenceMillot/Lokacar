@@ -11,5 +11,12 @@
     <string name="login_failed">"Login failed"</string>
     <string name="identifiant">Identifiant</string>
     <string name="mot_de_passe">mot de passe</string>
-    <string name="connexion">Connexion</string>
+    <string name="ajouter_un_vehicule">Ajouter un véhicule</string>
+    <string name="marque">Marque</string>
+    <string name="modele">Modèle</string>
+    <string name="plaque_d_immatriculation">Plaque d\'immatriculation</string>
+    <string name="citadine">Citadine</string>
+    <string name="prix_journalier">Prix journalier</string>
+    <string name="valider">Valider</string>
+    <string name="attelage">Attelage</string>
 </resources>
