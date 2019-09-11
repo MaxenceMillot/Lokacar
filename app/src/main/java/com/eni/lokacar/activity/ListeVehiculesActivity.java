@@ -1,4 +1,4 @@
-package com.eni.lokacar;
+package com.eni.lokacar.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,25 +7,18 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.appyvet.materialrangebar.RangeBar;
+import com.eni.lokacar.R;
 import com.eni.lokacar.adapter.RecyclerViewVehiculeAdapter;
 import com.eni.lokacar.data.model.Vehicule;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

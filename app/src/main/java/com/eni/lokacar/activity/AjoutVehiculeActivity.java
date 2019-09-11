@@ -1,4 +1,4 @@
-package com.eni.lokacar;
+package com.eni.lokacar.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +25,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.eni.lokacar.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
