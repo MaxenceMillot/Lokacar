@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.appyvet.materialrangebar.RangeBar;
+import com.eni.lokacar.MainActivity;
 import com.eni.lokacar.R;
 import com.eni.lokacar.adapter.RecyclerViewVehiculeAdapter;
 import com.eni.lokacar.data.model.Vehicule;
@@ -74,7 +75,14 @@ public class ListeVehiculesActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        RecyclerViewVehiculeAdapter rvaa = new RecyclerViewVehiculeAdapter(listeVehicules, null);
+        RecyclerViewVehiculeAdapter rvaa = new RecyclerViewVehiculeAdapter(listeVehicules, new RecyclerViewVehiculeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Vehicule vehicule) {
+//                Intent intentAjoutLocationActivity = new Intent(ListeVehiculesActivity.this, AjoutLocationActivity.class);
+//                intentAjoutLocationActivity.putExtra("Vehicule",vehicule);
+//                startActivity(intentAjoutLocationActivity);
+            }
+        });
         recyclerView.setAdapter(rvaa);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButtonListeVehicules);

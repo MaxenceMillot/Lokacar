@@ -40,7 +40,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
     TextView textViewNbPhotos;
     ArrayList<String> listePhotos = new ArrayList<>();
 
-    Vehicule vehiculeExtra;
+    Vehicule vehiculeExtra = getIntent().getParcelableExtra("Vehicule");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
