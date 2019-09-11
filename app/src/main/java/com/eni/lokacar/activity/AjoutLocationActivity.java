@@ -61,12 +61,10 @@ public class AjoutLocationActivity extends AppCompatActivity {
         editTextNbJours = findViewById(R.id.editTextNbJours);
         textViewCalculPrix = findViewById(R.id.textViewCalculPrix);
 
-        Intent intent = getIntent();
         // Get the extras (if there are any)
-        Bundle extras = intent.getExtras();
-
+        Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            vehiculeExtra = (Vehicule)getIntent().getExtras().get("vehicule");
+            vehiculeExtra = getIntent().getParcelableExtra("vehicule");
         }else{
             // TODO ERROR HANDLING
             Toast.makeText(this, "VehiculeExtra is NULL", Toast.LENGTH_SHORT).show();
@@ -141,7 +139,6 @@ public class AjoutLocationActivity extends AppCompatActivity {
                     );
                     long idLocation = db.locationDAO().insert(location);
 
-                    Log.i(TAG, "LOG -- location created with ID: "+idLocation+" At "+new Date());
                 }
             }).start();
 

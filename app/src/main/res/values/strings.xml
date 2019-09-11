@@ -29,4 +29,8 @@
     <string name="_0_photos_charg_s">0 Photos chargé(s)</string>
     <string name="prix">Prix:</string>
     <string name="prix_total">Prix total:</string>
+    <string name="client">Client</string>
+    <string name="liste_photos">Liste photos</string>
+    <string name="location">Location</string>
+    <string name="vehicule">Vehicule</string>
 </resources>
