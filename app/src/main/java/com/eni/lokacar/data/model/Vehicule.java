@@ -1,11 +1,14 @@
 package com.eni.lokacar.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Vehicule {
+public class Vehicule implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "vehicule_id")
     private int id;
@@ -36,6 +39,34 @@ public class Vehicule {
         this.isCitadine = isCitadine;
         this.isDispo = isDispo;
     }
+
+    protected Vehicule(Parcel in) {
+        id = in.readInt();
+        modele = in.readString();
+        marque = in.readString();
+        plaque = in.readString();
+        prixJour = in.readFloat();
+        photo = in.readString();
+        nbPorte = in.readInt();
+        nbPlace = in.readInt();
+        carburant = in.readString();
+        critair = in.readInt();
+        attelage = in.readByte() != 0;
+        isCitadine = in.readByte() != 0;
+        isDispo = in.readByte() != 0;
+    }
+
+    public static final Creator<Vehicule> CREATOR = new Creator<Vehicule>() {
+        @Override
+        public Vehicule createFromParcel(Parcel in) {
+            return new Vehicule(in);
+        }
+
+        @Override
+        public Vehicule[] newArray(int size) {
+            return new Vehicule[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -141,4 +172,24 @@ public class Vehicule {
         isDispo = dispo;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(modele);
+        parcel.writeString(marque);
+        parcel.writeString(plaque);
+        parcel.writeFloat(prixJour);
+        parcel.writeString(photo);
+        parcel.writeInt(nbPorte);
+        parcel.writeInt(nbPlace);
+        parcel.writeString(carburant);
+        parcel.writeInt(critair);
+        parcel.writeByte((byte) (attelage ? 1 : 0));
+        parcel.writeByte((byte) (isCitadine ? 1 : 0));
+        parcel.writeByte((byte) (isDispo ? 1 : 0));
+    }
 }
