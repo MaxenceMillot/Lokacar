@@ -22,7 +22,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import com.appyvet.materialrangebar.RangeBar;
 import com.eni.lokacar.adapter.RecyclerViewVehiculeAdapter;
 import com.eni.lokacar.data.model.Vehicule;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +33,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 public class ListeVehiculesActivity extends AppCompatActivity {
-
+    String[] spinnerCarburantArray = new String[]{"Essence", "Diesel", "Électrique", "GPL", "Hydrogène"};
+    Spinner spinnerCarburant;
+    RangeBar rangebarCritAir,rangeBarNbPortes,rangeBarNbPlaces;
     CardView cardViewFiltresListeVehicules;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,16 @@ public class ListeVehiculesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_liste_vehicules);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarListeVehicules));
         cardViewFiltresListeVehicules = findViewById(R.id.cardViewFilterListeArticles);
+
+        spinnerCarburant = findViewById(R.id.spinnerCarburant);
+        rangebarCritAir = findViewById(R.id.rangebarCritAir);
+
+        ArrayAdapter<String> adapterCarburant = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, spinnerCarburantArray);
+
+        adapterCarburant.setDropDownViewResource(R.layout.spinner_textview_align);
+        spinnerCarburant.setAdapter(adapterCarburant);
+        spinnerCarburant.setSelection(0);
 
         ArrayList<Vehicule> listeVehicules = new ArrayList<>();
 
@@ -129,7 +144,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                     return true;
                 }
             };
-            a.setDuration((int) (targtetHeight + 300));
+            a.setDuration((int) (300));
             v.startAnimation(a);
         }
 
@@ -156,7 +171,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
             }
         };
 
-        a.setDuration((int) (v.getLayoutParams().height + 300));
+        a.setDuration(300);
         v.startAnimation(a);
     }
 }
