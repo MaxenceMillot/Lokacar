@@ -145,7 +145,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
             // TODO start ListActivity + Toast Message
             Intent intentStartActivity = new Intent(this, MainActivity.class);
             startActivity(intentStartActivity);
-            Toast.makeText(this, "Location créée !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Location créée !", Toast.LENGTH_LONG).show();
         }
         return false;
     }

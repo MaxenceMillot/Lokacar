@@ -1,10 +1,11 @@
 package com.eni.lokacar.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.eni.lokacar.data.model.Vehicule;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class DetailLocationActivity extends AppCompatActivity {
     private static final String TAG = "DetailLocationActivity";
@@ -33,7 +35,8 @@ public class DetailLocationActivity extends AppCompatActivity {
     TextView textViewModele;
     TextView textViewPrixJour;
 
-    Vehicule vehiculeExtra;
+    private Vehicule vehiculeExtra;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +66,16 @@ public class DetailLocationActivity extends AppCompatActivity {
             vehiculeExtra = getIntent().getParcelableExtra("vehicule");
         }else{
             // TODO ERROR HANDLING
+            Intent intent = new Intent(DetailLocationActivity.this, ListeVehiculesActivity.class);
+            startActivity(intent);
+            Toast.makeText(DetailLocationActivity.this, "Erreur: Aucun ID de véhicule", Toast.LENGTH_LONG).show();
         }
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 // Database query
-                // TODO replace id with vehiculeExtra.getId();
-               final Location location = db.locationDAO().getLastByVehicule(1);
+               location = db.locationDAO().getLastByVehicule(vehiculeExtra.getId());
                 DetailLocationActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -99,13 +104,38 @@ public class DetailLocationActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.menuItemTerminerLocation){
-            // TODO Calculer prix final
+        if(item.getItemId() == R.id.menuItemTerminerLocation)
+        {
+            // Difference entre dateDebut et dateFin
+            Date dateFin = new Date();
+            long diff = dateFin.getTime() - location.getDateDebut().getTime();
+            long nbJours = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
-            // TODO set dateFin
+            // Calculer prix final
+            location.setPrix((nbJours+1)*location.getVehicule().getPrixJour());
 
-            // TODO Libérer voiture
+            // Set dateFin
+            location.setDateFin(dateFin);
 
+            // Libérer vehicule
+            location.getVehicule().setDispo(true);
+
+            // Persistence Vehicule & Location
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    db.locationDAO().updateLocation(location);
+                    db.vehiculeDAO().updateVehicule(location.getVehicule());
+                    DetailLocationActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(DetailLocationActivity.this, ListeVehiculesActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(DetailLocationActivity.this, "Location terminée avec succès", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }).start();
         }
         return false;
     }

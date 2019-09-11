@@ -192,4 +192,23 @@ public class Vehicule implements Parcelable {
         parcel.writeByte((byte) (isCitadine ? 1 : 0));
         parcel.writeByte((byte) (isDispo ? 1 : 0));
     }
+
+    @Override
+    public String toString() {
+        return "Vehicule{" +
+                "id=" + id +
+                ", modele='" + modele + '\'' +
+                ", marque='" + marque + '\'' +
+                ", plaque='" + plaque + '\'' +
+                ", prixJour=" + prixJour +
+                ", photo='" + photo + '\'' +
+                ", nbPorte=" + nbPorte +
+                ", nbPlace=" + nbPlace +
+                ", carburant='" + carburant + '\'' +
+                ", critair=" + critair +
+                ", attelage=" + attelage +
+                ", isCitadine=" + isCitadine +
+                ", isDispo=" + isDispo +
+                '}';
+    }
 }

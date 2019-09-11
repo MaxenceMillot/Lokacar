@@ -106,4 +106,19 @@ public class Location {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", vehicule=" + vehicule +
+                ", client=" + client +
+                ", photoAvant=" + photoAvant +
+                ", photoApres=" + photoApres +
+                ", dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin +
+                ", nbJours=" + nbJours +
+                ", prix=" + prix +
+                '}';
+    }
 }
