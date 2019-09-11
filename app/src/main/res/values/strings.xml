@@ -20,4 +20,6 @@
     <string name="valider">Valider</string>
     <string name="photo">Photo</string>
     <string name="_0_photos_charg_s">0 Photos chargé(s)</string>
+    <string name="prix">Prix:</string>
+    <string name="prix_total">Prix total:</string>
 </resources>

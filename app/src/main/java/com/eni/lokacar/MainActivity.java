@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "LokacarBDD").build();
-
+/*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -126,5 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).start();
+ */
     }
 }

@@ -7,37 +7,37 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.eni.lokacar.MainActivity;
 import com.eni.lokacar.R;
 import com.eni.lokacar.data.dal.AppDatabase;
 import com.eni.lokacar.data.model.Client;
 import com.eni.lokacar.data.model.Location;
 import com.eni.lokacar.data.model.Vehicule;
-import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class AjoutLocationActivity extends AppCompatActivity {
+    private static final String TAG = "AjoutLocationActivity";
     private AppDatabase db = null;
-    Validator validator;
 
-    @NotEmpty
-    @Length(min = 2, max = 35)
     EditText editTextNom;
-    @NotEmpty
-    @Length(min = 2, max = 35)
     EditText editTextPrenom;
     EditText editTextTelephone;
-    @NotEmpty
-    @Length(min = 10, max = 35)
     EditText editTextNbJours;
+    TextView textViewCalculPrix;
+    TextView textViewNbPhotos;
     ArrayList<String> listePhotos = new ArrayList<>();
 
     Vehicule vehiculeExtra;
@@ -58,7 +58,8 @@ public class AjoutLocationActivity extends AppCompatActivity {
         editTextNom = findViewById(R.id.editTextNomClient);
         editTextPrenom = findViewById(R.id.editTextPrenomClient);
         editTextTelephone = findViewById(R.id.editTextTelephoneClient);
-        editTextNbJours= findViewById(R.id.editTextNbJours);
+        editTextNbJours = findViewById(R.id.editTextNbJours);
+        textViewCalculPrix = findViewById(R.id.textViewCalculPrix);
 
         Intent intent = getIntent();
         // Get the extras (if there are any)
@@ -69,7 +70,39 @@ public class AjoutLocationActivity extends AppCompatActivity {
         }else{
             // TODO ERROR HANDLING
             Toast.makeText(this, "VehiculeExtra is NULL", Toast.LENGTH_SHORT).show();
+            //TODO remove debug default value
+            new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    vehiculeExtra = new Vehicule("Twingo", "Renault", "Y0L0W4G", 39.99f, "path/to/photo", 3, 4, "Essence", 3, false, true, true);
+                    long idVehicule = db.vehiculeDAO().insert(vehiculeExtra);
+                    vehiculeExtra.setId((int)idVehicule);
+                    Log.i(TAG, "LOG -- VehiculeExtra created with ID: "+vehiculeExtra.getId()+" At "+new Date());
+                }
+            }).start();
         }
+
+        editTextNbJours.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String prixStr = editTextNbJours.getText().toString();
+                int nbJours=0;
+                if(!"".equals(prixStr)){
+                    nbJours = Integer.parseInt(editTextNbJours.getText().toString());
+                }
+                DecimalFormat df = new DecimalFormat("##.##");
+                df.setRoundingMode(RoundingMode.DOWN);
+                float prix = Float.parseFloat(df.format(vehiculeExtra.getPrixJour()*nbJours));
+
+                textViewCalculPrix.setText("Prix total: "+prix+"€");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
     }
 
     @Override
@@ -78,36 +111,44 @@ public class AjoutLocationActivity extends AppCompatActivity {
         return true;
     }
 
-    //TODO onOptionItemSelected
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menuItemValider){
+            // TODO CHECK FIELDS INTEGRITY
 
-           // TODO CHECK FIELDS INTEGRITY
-                // TODO CREATE Client
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Client client = new Client(editTextNom.getText().toString(), editTextPrenom.getText().toString(), editTextTelephone.getText().toString());
-                        long clientId = db.clientDAO().insert(client);
-                        client.setId(((int) clientId));
+            // CREATE Client
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Client client = new Client(editTextNom.getText().toString(), editTextPrenom.getText().toString(), editTextTelephone.getText().toString());
+                    long clientId = db.clientDAO().insert(client);
+                    client.setId(((int) clientId));
 
-                        // TODO CREATE Location
-                        int nbJours = Integer.parseInt(editTextNbJours.getText().toString());
-                        Location location = new Location(vehiculeExtra,
-                                client,
-                                listePhotos,
-                                null,
-                                new Date(),
-                                null,
-                                nbJours,
-                                vehiculeExtra.getPrixJour()*nbJours);
-                        db.locationDAO().insert(location);
-                    }
-                });
+                    // CREATE Location
+                    int nbJours = Integer.parseInt(editTextNbJours.getText().toString());
+                    DecimalFormat df = new DecimalFormat("##.##");
+                    df.setRoundingMode(RoundingMode.DOWN);
+                    float prix = Float.parseFloat(df.format(vehiculeExtra.getPrixJour()*nbJours));
+                    Location location = new Location(
+                            vehiculeExtra,
+                            client,
+                            listePhotos,
+                            null,
+                            new Date(),
+                            null,
+                            nbJours,
+                            prix
+                    );
+                    long idLocation = db.locationDAO().insert(location);
 
-                // TODO start ListActivity + Toast Message
-                Toast.makeText(this, "Location créée !", Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "LOG -- location created with ID: "+idLocation+" At "+new Date());
+                }
+            }).start();
+
+            // TODO start ListActivity + Toast Message
+            Intent intentStartActivity = new Intent(this, MainActivity.class);
+            startActivity(intentStartActivity);
+            Toast.makeText(this, "Location créée !", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

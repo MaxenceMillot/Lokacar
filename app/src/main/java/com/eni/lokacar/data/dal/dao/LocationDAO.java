@@ -21,7 +21,7 @@ public interface LocationDAO {
     Location getLastByVehicule(int idVehicule);
 
     @Insert
-    void  insert(Location location);
+    long  insert(Location location);
 
     @Insert
     void insertAll(Location... location);
