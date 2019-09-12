@@ -22,8 +22,9 @@ public interface LocationDAO {
     Location getLastByVehicule(int idVehicule);
 
     @Query("SELECT SUM(prix) FROM Location" +
-            " WHERE dateFin > date('now','-1 year')")
-    float getChiffreAffaire();
+            " WHERE dateFin > :intervalDebut"+
+            " AND dateFin < :intervalFin")
+    float getChiffreAffaire(int intervalDebut, int intervalFin);
 
     @Insert
     long  insert(Location location);
