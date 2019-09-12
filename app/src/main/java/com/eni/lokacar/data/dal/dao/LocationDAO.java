@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import com.eni.lokacar.data.model.Location;
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -19,6 +20,10 @@ public interface LocationDAO {
             " WHERE Location.loc_vehicule_id = :idVehicule"+
             " AND dateFin IS NULL")
     Location getLastByVehicule(int idVehicule);
+
+    @Query("SELECT SUM(prix) FROM Location" +
+            " WHERE dateFin > date('now','-1 year')")
+    float getChiffreAffaire();
 
     @Insert
     long  insert(Location location);

@@ -120,7 +120,6 @@ public class AjoutLocationActivity extends AppCompatActivity {
                             " pour une durée de "+location.getNbJours()+" jours à compter du "+
                             dateFormat.format(location.getDateDebut())+".\n\n"+
                             "Bonne route.";
-
                     SmsManager manager = SmsManager.getDefault();
                     ArrayList<String> parts = manager.divideMessage(message);
                     manager.sendMultipartTextMessage(
