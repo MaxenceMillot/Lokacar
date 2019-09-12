@@ -20,12 +20,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.room.Room;
 
 import com.eni.lokacar.R;
+import com.eni.lokacar.data.dal.AppDatabase;
+import com.eni.lokacar.data.model.Vehicule;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -35,6 +40,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AjoutVehiculeActivity extends AppCompatActivity {
+    private AppDatabase db = null;
     public static final int REQUEST_CODE_PHOTO = 1;
     String[] spinnerCarburantArray = new String[]{"Essence", "Diesel", "Électricité", "GPL", "Hydrogène"};
     String[] spinnerCritAirArray = new String[]{"0", "1", "2", "3", "4", "5"};
@@ -52,7 +58,9 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajout_vehicule);
 
-        //setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarAjoutVehicule));
+
+        db = Room.databaseBuilder(this, AppDatabase.class, "LokacarBDD").build();
 
         editTextMarque = findViewById(R.id.editTextMarque);
         editTextModele = findViewById(R.id.editTextModele);
@@ -103,28 +111,42 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_liste_vehicule_activity, menu);
+        getMenuInflater().inflate(R.menu.toolbar_ajout, menu);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        if(item.getItemId() == R.id.valider){
-//            String marque = editTextMarque.getText().toString();
-//            String modele = editTextModele.getText().toString();
-//            String plaque = editTextPlaque.getText().toString();
-//            Float prixJour = Float.valueOf(editTextPrixJour.getText().toString());
-//            String carburant = spinnerCarburantArray[spinnerCarburant.getSelectedItemPosition()];
-//            int critAir = Integer.valueOf(spinnerCritAirArray[spinnerCritAir.getSelectedItemPosition()]);
-//            int nbPlaces = Integer.valueOf(spinnerNbPlacesArray[spinnerNbPlaces.getSelectedItemPosition()]);
-//            int nbPortes = Integer.valueOf(spinnerNbPortesArray[spinnerNbPortes.getSelectedItemPosition()]);
-//            Boolean citadine = switchCitadine.isChecked();
-//            Boolean attelage = switchAttelage.isChecked();
-//            Vehicule vehicule = new Vehicule(modele,marque,plaque,prixJour,null,nbPortes,nbPlaces,carburant,critAir,attelage,citadine,true);
-//            //TODO ajouter le véhicule créé en base
-//            return true;
-//        }
+        if(item.getItemId() == R.id.menuItemValider){
+            String marque = editTextMarque.getText().toString();
+            String modele = editTextModele.getText().toString();
+            String plaque = editTextPlaque.getText().toString();
+            Float prixJour = Float.valueOf(editTextPrixJour.getText().toString());
+            String carburant = spinnerCarburantArray[spinnerCarburant.getSelectedItemPosition()];
+            int critAir = Integer.valueOf(spinnerCritAirArray[spinnerCritAir.getSelectedItemPosition()]);
+            int nbPlaces = Integer.valueOf(spinnerNbPlacesArray[spinnerNbPlaces.getSelectedItemPosition()]);
+            int nbPortes = Integer.valueOf(spinnerNbPortesArray[spinnerNbPortes.getSelectedItemPosition()]);
+            Boolean citadine = switchCitadine.isChecked();
+            Boolean attelage = switchAttelage.isChecked();
+            final Vehicule vehicule = new Vehicule(modele,marque,plaque,prixJour,null,nbPortes,nbPlaces,carburant,critAir,attelage,citadine,true);
+            //TODO ajouter le véhicule créé en base
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    long id = db.vehiculeDAO().insert(vehicule);
+                    AjoutVehiculeActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(AjoutVehiculeActivity.this, ListeVehiculesActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(AjoutVehiculeActivity.this, "Vehicule ajouté avec succès", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }).start();
+            return true;
+        }
         return false;
     }
 
