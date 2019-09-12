@@ -32,11 +32,11 @@ public class ChiffreAffaireActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                chiffreAffaire = String.valueOf(db.locationDAO().getChiffreAffaire());
+                chiffreAffaire = String.valueOf(db.locationDAO().getChiffreAffaire()+"€");
                 ChiffreAffaireActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textViewChiffreAffaire.setText(chiffreAffaire+"€");
+                        textViewChiffreAffaire.setText(chiffreAffaire);
                     }
                 });
             }
