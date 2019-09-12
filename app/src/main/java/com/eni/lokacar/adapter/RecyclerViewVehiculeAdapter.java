@@ -2,9 +2,12 @@ package com.eni.lokacar.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eni.lokacar.R;
 import com.eni.lokacar.data.model.Vehicule;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerViewVehiculeAdapter.VehiculeViewHolder> {
@@ -25,6 +29,7 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
         TextView textViewModele;
         TextView textViewPlaque;
         TextView textViewPrixJour;
+        ImageView imageViewElementListVehicule;
         View viewColorDispo;
 
         public VehiculeViewHolder(@NonNull View itemView){
@@ -33,7 +38,8 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
             textViewModele = itemView.findViewById(R.id.textViewModele);
             textViewPlaque = itemView.findViewById(R.id.textViewPlaque);
             textViewPrixJour = itemView.findViewById(R.id.textViewPrixJour);
-            viewColorDispo = itemView.findViewById(R.id.viewColorDispo);
+            viewColorDispo = itemView.findViewById(R.id.viewColorDispo);;
+            imageViewElementListVehicule = itemView.findViewById(R.id.imageViewElementListVehicule);
         }
     }
 
@@ -63,6 +69,8 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
         holder.textViewPlaque.setText(listVehicule.get(position).getPlaque());
         holder.textViewPrixJour.setText(Float.toString(listVehicule.get(position).getPrixJour())+"€/Jour");
         holder.viewColorDispo.setBackgroundColor(listVehicule.get(position).isDispo()?context.getResources().getColor(R.color.colorGreen):context.getResources().getColor(R.color.colorRed));
+        File image = new File(this.context.getFilesDir(),  listVehicule.get(position).getId()+".jpg");
+        holder.imageViewElementListVehicule.setImageURI(Uri.fromFile(image));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

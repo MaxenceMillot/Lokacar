@@ -48,9 +48,9 @@
         android:layout_marginStart="8dp"
         android:text="TextViewPrix"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewDetailVehicule"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDetailVehicule"
+        app:layout_constraintTop_toTopOf="@+id/imageViewDetailVehicule" />
 
     <View
         android:id="@+id/divider"
@@ -207,7 +207,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewPrixJour2" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewDetailVehicule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

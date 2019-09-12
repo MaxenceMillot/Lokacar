@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eni.lokacar.R;
@@ -14,14 +17,15 @@ import com.eni.lokacar.data.dal.AppDatabase;
 import com.eni.lokacar.data.model.Location;
 import com.eni.lokacar.data.model.Vehicule;
 
+import java.io.File;
 import java.util.Date;
 
 public class DetailVehiculeActivity extends AppCompatActivity {
 
     Vehicule vehicule;
-    TextView textViewMarque,textViewModele,textViewPlaque,textViewPrix;
+    TextView textViewMarque,textViewModele,textViewPlaque,textViewPrix,textViewCarburant,textViewCritAir,textViewNbPortes,textViewNbPlaces;
     Button buttonRendre,buttonLouer;
-    Button buttonDetailLocation;
+    ImageView imageViewDetailVehicule,imageViewCitadine,imageViewAttelage;
     AppDatabase db ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,15 @@ public class DetailVehiculeActivity extends AppCompatActivity {
         textViewModele = findViewById(R.id.textViewModele);
         textViewPlaque = findViewById(R.id.textViewPlaque);
         textViewPrix = findViewById(R.id.textViewPrix);
+        textViewCarburant = findViewById(R.id.textViewCarburant);
+        textViewCritAir = findViewById(R.id.textViewCritAir);
+        textViewNbPortes = findViewById(R.id.textViewNbPortes);
+        textViewNbPlaces = findViewById(R.id.textViewNbPlaces);
+        imageViewCitadine = findViewById(R.id.imageViewCitadine);
+        imageViewAttelage = findViewById(R.id.imageViewAttelage);
+        imageViewDetailVehicule = findViewById(R.id.imageViewDetailVehicule);
         buttonLouer = findViewById(R.id.buttonLouer);
-        buttonDetailLocation = findViewById(R.id.buttonDetailLocation);
+        buttonRendre = findViewById(R.id.buttonRendre);
 
 
         StringBuilder text = new StringBuilder();
@@ -66,36 +77,47 @@ public class DetailVehiculeActivity extends AppCompatActivity {
         }else{
             text.append("est actuellement louée");
         }
-
+        File image = new File(this.getApplicationContext().getFilesDir(),  vehicule.getId()+".jpg");
+        imageViewDetailVehicule.setImageURI(Uri.fromFile(image));
         textViewMarque.setText(vehicule.getMarque());
         textViewModele.setText(vehicule.getModele());
         textViewPlaque.setText(vehicule.getPlaque());
-        textViewPrix.setText(text);
+        textViewPrix.setText(vehicule.getPrixJour()+"/Jour");
+        textViewCarburant.setText(vehicule.getCarburant());
+        textViewCritAir.setText(String.valueOf(vehicule.getCritair()));
+        textViewNbPortes.setText(String.valueOf(vehicule.getNbPorte()));
+        textViewNbPlaces.setText(String.valueOf(vehicule.getNbPlace()));
+        Drawable check = getApplicationContext().getResources().getDrawable(R.drawable.ic_check_green_24dp);
+        Drawable close = getApplicationContext().getResources().getDrawable(R.drawable.ic_close_red_24dp);
+        imageViewCitadine.setImageDrawable(vehicule.isCitadine()?check:close);
+        imageViewAttelage.setImageDrawable(vehicule.isAttelage()?check:close);
 
         if(vehicule.isDispo()){
             buttonLouer.setVisibility(View.VISIBLE);
-            buttonDetailLocation.setVisibility(View.GONE);
+            buttonRendre.setVisibility(View.GONE);
         }
         else{
             buttonLouer.setVisibility(View.GONE);
-            buttonDetailLocation.setVisibility(View.VISIBLE);
+            buttonRendre.setVisibility(View.VISIBLE);
         }
 
         buttonLouer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentToAjoutLocationActivity = new Intent(DetailVehiculeActivity.this, AjoutLocationActivity.class);
-                intentToAjoutLocationActivity.putExtra("vehicule",vehicule);
+                Intent intentToAjoutLocationActivity = new Intent(DetailVehiculeActivity.this,AjoutLocationActivity.class);
+                intentToAjoutLocationActivity.putExtra("Vehicule",vehicule);
                 startActivity(intentToAjoutLocationActivity);
             }
         });
 
-        buttonDetailLocation.setOnClickListener(new View.OnClickListener() {
+        buttonRendre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentToDetailLocationActivity = new Intent(DetailVehiculeActivity.this, DetailLocationActivity.class);
-                intentToDetailLocationActivity.putExtra("vehicule",vehicule);
-                startActivity(intentToDetailLocationActivity);
+                Location location = db.locationDAO().getLastByVehicule(vehicule.getId());
+                location.setDateFin(new Date());
+                db.locationDAO().updateLocation(location);
+                vehicule.setDispo(true);
+                db.vehiculeDAO().updateVehicule(vehicule);
             }
         });
     }

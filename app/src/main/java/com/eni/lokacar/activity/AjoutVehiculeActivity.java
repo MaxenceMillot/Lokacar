@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,7 @@ import java.util.Random;
 public class AjoutVehiculeActivity extends AppCompatActivity {
     private AppDatabase db = null;
     public static final int REQUEST_CODE_PHOTO = 1;
+    private static final String TAG = "AjoutVehiculeActivity";
     String[] spinnerCarburantArray = new String[]{"Essence", "Diesel", "Électricité", "GPL", "Hydrogène"};
     String[] spinnerCritAirArray = new String[]{"0", "1", "2", "3", "4", "5"};
     String[] spinnerNbPlacesArray = new String[]{"1", "2", "3", "4", "5", "6", "7", "8","9"};
@@ -135,6 +137,9 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     long id = db.vehiculeDAO().insert(vehicule);
+                    File oldFile = getApplicationContext().getFileStreamPath("tempImage.jpg");
+                    File newFile = getApplicationContext().getFileStreamPath(id+".jpg");
+                    oldFile.renameTo(newFile);
                     AjoutVehiculeActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -192,7 +197,7 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
     }
 
     private void saveProfilePicture(File tempFile) {
-        final File imageFile = new File(getFilesDir(), new Random().nextInt() +".jpg");
+        final File imageFile = new File(getFilesDir(),  "tempImage.jpg");
         if (imageFile.exists()) {
             imageFile.delete();
         }
@@ -204,7 +209,6 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
                 Bitmap bitmapOrg = createOriginalBitmap(tempPath);
                 bitmapOrg = rotateImage(tempPath, bitmapOrg); //Prendre une photo à l'horizontale fait crash l'appli
                 final Bitmap finalBitmap = resizeBitmap(bitmapOrg);
-                //imageViewAjoutVoiture.setImageBitmap(finalBitmap);
                 FileOutputStream out = null;
                 try {
                     out = new FileOutputStream(imageFile);
@@ -221,8 +225,8 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
             } catch (final Exception e) {
                 return;
             }
-
-            Picasso.get().load(imageFile).rotate(90).into(imageViewAjoutVoiture);
+            tempProfileImageFile = imageFile;
+            Picasso.get().load(imageFile).into(imageViewAjoutVoiture);
             Picasso.get().invalidate(imageFile);
 
             try {
