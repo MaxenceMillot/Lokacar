@@ -38,20 +38,15 @@ public class ChiffreAffaireActivity extends AppCompatActivity {
             public void run() {
                 Calendar c = Calendar.getInstance();   // this takes current date
                 c.set(Calendar.DAY_OF_MONTH, 1);
+                long mois = c.getTimeInMillis();
+                c.add(Calendar.MONTH, -1);
+                long moisMoinsUn = c.getTimeInMillis();
 
-                String mois = c.getTime().toString();
-                Log.i(TAG, "LOG-- premier du mois: "+mois);
-
-
-                c.add(Calendar.MONTH, 1);
-                String moisPlusUn = c.getTime().toString();
-                Log.i(TAG, "LOG-- premier du mois+1: "+moisPlusUn);
-
-                //chiffreAffaire = String.valueOf(db.locationDAO().getChiffreAffaire()+"€");
+                chiffreAffaire = String.valueOf(db.locationDAO().getChiffreAffaire(moisMoinsUn, mois)+"€");
                 ChiffreAffaireActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //textViewChiffreAffaire.setText(chiffreAffaire);
+                        textViewChiffreAffaire.setText(chiffreAffaire);
                     }
                 });
             }

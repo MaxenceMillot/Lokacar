@@ -16,7 +16,6 @@ public class Vehicule implements Parcelable {
     private String marque;
     private String plaque;
     private float prixJour;
-    private String photo;
     private int nbPorte;
     private int nbPlace;
     private String carburant;
@@ -25,12 +24,11 @@ public class Vehicule implements Parcelable {
     private boolean isCitadine;
     private boolean isDispo;
 
-    public Vehicule(String modele, String marque, String plaque, float prixJour, String photo, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine, boolean isDispo) {
+    public Vehicule(String modele, String marque, String plaque, float prixJour, int nbPorte, int nbPlace, String carburant, int critair, boolean attelage, boolean isCitadine, boolean isDispo) {
         this.modele = modele;
         this.marque = marque;
         this.plaque = plaque;
         this.prixJour = prixJour;
-        this.photo = photo;
         this.nbPorte = nbPorte;
         this.nbPlace = nbPlace;
         this.carburant = carburant;
@@ -46,7 +44,6 @@ public class Vehicule implements Parcelable {
         marque = in.readString();
         plaque = in.readString();
         prixJour = in.readFloat();
-        photo = in.readString();
         nbPorte = in.readInt();
         nbPlace = in.readInt();
         carburant = in.readString();
@@ -106,14 +103,6 @@ public class Vehicule implements Parcelable {
 
     public void setPrixJour(float prixJour) {
         this.prixJour = prixJour;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public int getNbPorte() {
@@ -184,7 +173,6 @@ public class Vehicule implements Parcelable {
         parcel.writeString(marque);
         parcel.writeString(plaque);
         parcel.writeFloat(prixJour);
-        parcel.writeString(photo);
         parcel.writeInt(nbPorte);
         parcel.writeInt(nbPlace);
         parcel.writeString(carburant);
@@ -202,7 +190,6 @@ public class Vehicule implements Parcelable {
                 ", marque='" + marque + '\'' +
                 ", plaque='" + plaque + '\'' +
                 ", prixJour=" + prixJour +
-                ", photo='" + photo + '\'' +
                 ", nbPorte=" + nbPorte +
                 ", nbPlace=" + nbPlace +
                 ", carburant='" + carburant + '\'' +

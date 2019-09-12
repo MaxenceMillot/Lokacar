@@ -5,7 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
@@ -17,18 +16,14 @@ public class Location {
     private Vehicule vehicule;
     @Embedded(prefix = "loc_")
     private Client client;
-    private ArrayList<String> photoAvant;
-    private ArrayList<String> photoApres;
     private Date dateDebut;
     private Date dateFin;
     private int nbJours;
     private Float prix;
 
-    public Location(Vehicule vehicule, Client client, ArrayList<String> photoAvant, ArrayList<String> photoApres, Date dateDebut, Date dateFin, int nbJours, Float prix) {
+    public Location(Vehicule vehicule, Client client, Date dateDebut, Date dateFin, int nbJours, Float prix) {
         this.vehicule = vehicule;
         this.client = client;
-        this.photoAvant = photoAvant;
-        this.photoApres = photoApres;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.nbJours = nbJours;
@@ -43,21 +38,6 @@ public class Location {
         this.id = id;
     }
 
-    public ArrayList<String> getPhotoAvant() {
-        return photoAvant;
-    }
-
-    public void setPhotoAvant(ArrayList<String> photoAvant) {
-        this.photoAvant = photoAvant;
-    }
-
-    public ArrayList<String> getPhotoApres() {
-        return photoApres;
-    }
-
-    public void setPhotoApres(ArrayList<String> photoApres) {
-        this.photoApres = photoApres;
-    }
 
     public Date getDateDebut() {
         return dateDebut;
@@ -113,8 +93,6 @@ public class Location {
                 "id=" + id +
                 ", vehicule=" + vehicule +
                 ", client=" + client +
-                ", photoAvant=" + photoAvant +
-                ", photoApres=" + photoApres +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", nbJours=" + nbJours +

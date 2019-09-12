@@ -129,7 +129,7 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
             int nbPortes = Integer.valueOf(spinnerNbPortesArray[spinnerNbPortes.getSelectedItemPosition()]);
             Boolean citadine = switchCitadine.isChecked();
             Boolean attelage = switchAttelage.isChecked();
-            final Vehicule vehicule = new Vehicule(modele,marque,plaque,prixJour,null,nbPortes,nbPlaces,carburant,critAir,attelage,citadine,true);
+            final Vehicule vehicule = new Vehicule(modele,marque,plaque,prixJour,nbPortes,nbPlaces,carburant,critAir,attelage,citadine,true);
             //TODO ajouter le véhicule créé en base
             new Thread(new Runnable() {
                 @Override

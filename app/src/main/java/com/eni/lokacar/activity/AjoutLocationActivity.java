@@ -43,7 +43,6 @@ public class AjoutLocationActivity extends AppCompatActivity {
     EditText editTextNbJours;
     TextView textViewCalculPrix;
     TextView textViewNbPhotos;
-    ArrayList<String> listePhotos = new ArrayList<>();
 
     private Vehicule vehiculeExtra;
     private Location location;
@@ -107,7 +106,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
                     DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
-                    String message = "Bonjour "+  location.getClient().getPrenom()+ " "+ location.getClient().getNom()+", votre location chez Lokacar à été validé.\n\n" +
+                    String message = "Bonjour "+  location.getClient().getPrenom()+ " "+ location.getClient().getNom()+", votre location chez Lokacar à été validée.\n\n" +
                             "Vous avez réservé une "+vehiculeExtra.getMarque()+" "+vehiculeExtra.getModele()+
                             " pour une durée de "+location.getNbJours()+" jours à compter du "+
                             dateFormat.format(location.getDateDebut())+".\n\n"+
@@ -161,10 +160,8 @@ public class AjoutLocationActivity extends AppCompatActivity {
                     location = new Location(
                             vehiculeExtra,
                             client,
-                            listePhotos,
                             null,
                             new Date(),
-                            null,
                             nbJours,
                             prix
                     );

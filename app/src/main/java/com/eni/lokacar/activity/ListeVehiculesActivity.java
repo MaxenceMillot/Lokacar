@@ -1,9 +1,6 @@
 package com.eni.lokacar.activity;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.opengl.Visibility;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,11 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -31,10 +25,14 @@ import com.appyvet.materialrangebar.RangeBar;
 import com.eni.lokacar.R;
 import com.eni.lokacar.adapter.RecyclerViewVehiculeAdapter;
 import com.eni.lokacar.data.dal.AppDatabase;
+import com.eni.lokacar.data.model.Client;
+import com.eni.lokacar.data.model.Location;
 import com.eni.lokacar.data.model.Vehicule;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ListeVehiculesActivity extends AppCompatActivity {
@@ -49,6 +47,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
     List<Vehicule> listeVehicules = new ArrayList<>();
     AppDatabase db ;
     Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +56,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
         cardViewFiltresListeVehicules = findViewById(R.id.cardViewFilterListeArticles);
 
         db = Room.databaseBuilder(this, AppDatabase.class, "LokacarBDD").build();
+
         spinnerCarburant = findViewById(R.id.spinnerCarburant);
         rangebarCritAir = findViewById(R.id.rangebarCritAir);
         rangebarNbPortes = findViewById(R.id.rangebarNbPortes);
@@ -72,37 +72,61 @@ public class ListeVehiculesActivity extends AppCompatActivity {
         spinnerCarburant.setAdapter(adapterCarburant);
         spinnerCarburant.setSelection(0);
 
-        final ArrayList<Vehicule> listeVehicules = new ArrayList<>();
+        // Checks if the DB is empty: if so, insert placeholder datas
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(db.vehiculeDAO().getAll().size()<1){
+                    Client wayne = new Client("Wayne", "Bruce", "0760985982");
+                    Client parker = new Client("Parker", "peter", "0760985982");
+                    Client musk = new Client("Musk", "Ellon", "0760985982");
+                    wayne.setId((int)db.clientDAO().insert(wayne));
+                    parker.setId((int)db.clientDAO().insert(parker));
+                    musk.setId((int)db.clientDAO().insert(musk));
 
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Diesel",3,false,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,5,"Essence",1,true,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",30.99f,null,3,6,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",20.99f,null,3,5,"Diesel",3,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",50.99f,null,3,5,"Essence",1,true,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",60.99f,null,3,5,"Essence",1,false,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",70.99f,null,5,5,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,4,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,5,"Diesel",3,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,3,"Essence",1,true,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,5,"Essence",1,false,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,2,"Essence",1,false,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Diesel",3,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,true,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,8,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,true,true));
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                for(Vehicule vehicule : listeVehicules){
-//                    db.vehiculeDAO().insert(vehicule);
-//                }
-//            }
-//        }).start();
+
+                    Vehicule batmobile = new Vehicule("Mobile", "Bat", "B4TM4N", 999.99f, 2, 2, "Diesel", 5, false, false, false);
+                    Vehicule busScolaire = new Vehicule("Scolaire", "Bus", "T0B3Y", 12.25f, 2, 9, "Diesel", 5, false, false, false);
+                    Vehicule tesla = new Vehicule("Model S", "Tesla", "SP4C3X", 98f, 5, 5, "Électricité", 1, false, false, false);
+                    Vehicule kykymobile = new Vehicule("mobile", "kyky", "F4LC0N", 72f, 5, 5, "Essence", 2, true, false, true);
+                    Vehicule twingo = new Vehicule("Twingo", "Renault", "SW4G", 28.75f, 3, 4, "Essence", 3, false, true, true);
+                    Vehicule deLorean = new Vehicule("DeLorean DMC-12", "DMC", "Z3U5", 125.75f, 2, 2, "Essence", 5, false, false, true);
+                    Vehicule classeC = new Vehicule("Class C", "Mercedes", "BL1NG", 42.75f, 5, 5, "Essence", 1, false, false, true);
+                    Vehicule punto = new Vehicule("Punto", "Fiat", "Y0L0", 28.74f, 3, 5, "Diesel", 3, false, true, true);
+                    Vehicule kiaRio = new Vehicule("Rio", "Kia", "W33B", 33.5f, 3, 5, "Essence", 1, false, true, true);
+                    Vehicule c4 = new Vehicule("C4", "Citroën", "44BZH", 35.45f, 5, 5, "Diesel", 3, false, false, true);
+                    batmobile.setId((int)db.vehiculeDAO().insert(batmobile));
+                    busScolaire.setId((int)db.vehiculeDAO().insert(busScolaire));
+                    tesla.setId((int)db.vehiculeDAO().insert(tesla));
+                    kykymobile.setId((int)db.vehiculeDAO().insert(kykymobile));
+                    twingo.setId((int)db.vehiculeDAO().insert(twingo));
+                    deLorean.setId((int)db.vehiculeDAO().insert(deLorean));
+                    classeC.setId((int)db.vehiculeDAO().insert(classeC));
+                    punto.setId((int)db.vehiculeDAO().insert(punto));
+                    kiaRio.setId((int)db.vehiculeDAO().insert(kiaRio));
+                    c4.setId((int)db.vehiculeDAO().insert(c4));
+
+                    Calendar c = Calendar.getInstance();
+                    c.set(Calendar.MONTH, 8);
+                    c.set(Calendar.DAY_OF_MONTH, 4);
+                    long timeStampDebut = c.getTimeInMillis();
+                    c.set(Calendar.DAY_OF_MONTH, 16);
+                    long timeStampFin = c.getTimeInMillis();
+                    Date dateDebut = new Date();
+                    dateDebut.setTime(timeStampDebut);
+                    Date dateFin = new Date();
+                    dateFin.setTime(timeStampFin);
+
+                    Location loc1 = new Location(batmobile, wayne, dateDebut, dateFin, 12, 11999.88f);
+                    Location loc2 = new Location(busScolaire, parker, dateDebut, dateFin, 12, 147f);
+                    Location loc3 = new Location(tesla, musk, dateDebut, dateFin, 12, 1176f);
+                    db.locationDAO().insertAll(loc1, loc2, loc3);
+
+                }
+            }
+        }).start();
+
 
         spinnerCarburant.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
