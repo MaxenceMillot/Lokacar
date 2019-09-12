@@ -14,8 +14,22 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAjoutLocationTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Ajouter location"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <EditText
         android:id="@+id/editTextNbJours"
@@ -23,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/dur_e_en_jours"
         android:inputType="number"
@@ -80,32 +94,31 @@
         android:id="@+id/imageButton"
         android:layout_width="67dp"
         android:layout_height="52dp"
-        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/editTextNbJours"
-        app:layout_constraintEnd_toStartOf="@+id/textViewNombrePhotos"
+        app:layout_constraintStart_toStartOf="@+id/textViewNombrePhotos"
         app:layout_constraintTop_toTopOf="@+id/editTextNbJours"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_add_a_photo_photo_24dp" />
 
     <TextView
         android:id="@+id/textViewNombrePhotos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/_0_photos_charg_s"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     <TextView
         android:id="@+id/textViewCalculPrix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:text="@string/prix_total"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNombrePhotos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNbJours" />
+        app:layout_constraintTop_toTopOf="@+id/textViewNombrePhotos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

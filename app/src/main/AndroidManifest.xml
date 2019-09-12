@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eni.lokacar">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DetailLocationActivity"
+
+        <activity android:name=".activity.ChiffreAffaireActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
+
+        <activity
+            android:name=".activity.DetailLocationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.AjoutLocationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".activity.ListeVehiculesActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,19 +34,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AjoutLocationActivity"
+            android:name=".activity.AjoutVehiculeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activity.ListeVehiculesActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
-        <activity
-            android:name=".activity.AjoutVehiculeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
