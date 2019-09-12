@@ -10,7 +10,7 @@
         android:id="@+id/cardViewFilterListeArticles"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarListeVehicules">
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Carburant :"
+                android:text="Carburant : "
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,10 +82,10 @@
                 android:id="@+id/rangebarCritAir"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/rangebarNbPortes"
                 app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="@+id/rangebarNbPortes"
                 app:layout_constraintTop_toBottomOf="@+id/spinnerCarburant"
                 app:mrb_barWeight="2dp"
                 app:mrb_connectingLineWeight="4dp"
@@ -111,9 +111,9 @@
                 android:id="@+id/rangebarNbPortes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/rangebarNbPlaces"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/rangebarNbPlaces"
                 app:layout_constraintTop_toBottomOf="@+id/rangebarCritAir"
                 app:mrb_barWeight="2dp"
                 app:mrb_connectingLineWeight="4dp"
@@ -140,9 +140,9 @@
                 android:id="@+id/rangebarNbPlaces"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/rangebarPrixJour"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/rangebarPrixJour"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/rangebarNbPortes"
                 app:mrb_barWeight="2dp"
                 app:mrb_connectingLineWeight="4dp"
@@ -199,8 +199,8 @@
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Crit'Air :"
+                android:layout_marginStart="8dp"
+                android:text="Crit'Air : "
                 app:layout_constraintBottom_toBottomOf="@+id/rangebarCritAir"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/rangebarCritAir" />
@@ -209,30 +209,33 @@
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Portes :"
+                android:layout_marginStart="8dp"
+                android:text="Portes : "
                 app:layout_constraintBottom_toTopOf="@+id/rangebarNbPlaces"
                 app:layout_constraintEnd_toEndOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/rangebarNbPortes" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Places :"
+                android:layout_marginStart="8dp"
+                android:text="Places : "
                 app:layout_constraintBottom_toTopOf="@+id/rangebarPrixJour"
                 app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/rangebarNbPlaces" />
 
             <TextView
                 android:id="@+id/textViewPrixJour"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Prix :"
+                android:layout_marginStart="8dp"
+                android:text="Prix : "
                 app:layout_constraintBottom_toBottomOf="@+id/rangebarPrixJour"
                 app:layout_constraintEnd_toEndOf="@+id/textView3"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/rangebarPrixJour" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

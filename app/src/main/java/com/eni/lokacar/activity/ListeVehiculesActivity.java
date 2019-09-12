@@ -1,6 +1,9 @@
 package com.eni.lokacar.activity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.opengl.Visibility;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,8 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -42,6 +48,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Vehicule> listeVehicules = new ArrayList<>();
     AppDatabase db ;
+    Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,31 +213,44 @@ public class ListeVehiculesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_liste_vehicules, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.Filtres){
-            if(cardViewFiltresListeVehicules.getVisibility() == View.VISIBLE){
-                collapse(cardViewFiltresListeVehicules);
-            }
-            else
-            {
-                expand(cardViewFiltresListeVehicules);
-            }
-            return true;
-        }
-        else if(item.getItemId() == R.id.ChiffreAffaire){
-            Intent intentToConfiguration = new Intent(this,ChiffreAffaireActivity.class);
-            startActivity(intentToConfiguration);
-            return true;
-        }
-        else if(item.getItemId() == R.id.menuSwitchDispo){
-            filterDispo = !item.isChecked();
-            item.setChecked(filterDispo);
-            updateListe();
+        switch (item.getItemId()) {
+            case R.id.Filtres:
+                if (item.isChecked()) {
+                    collapse(cardViewFiltresListeVehicules);
+                } else {
+                    expand(cardViewFiltresListeVehicules);
+                }
+                return true;
+            case R.id.ChiffreAffaire:
+                Intent intentToConfiguration = new Intent(this, ChiffreAffaireActivity.class);
+                startActivity(intentToConfiguration);
+                return true;
+            case R.id.buttonFilterDispo:
+                filterDispo = item.isChecked();
+                item.setChecked(!filterDispo);
+                int icon = item.isChecked()?R.drawable.ic_directions_car_green_24dp:R.drawable.ic_directions_car_red_24dp;
+                item.setIcon(icon);
+                MenuItem menuFiltre = menu.findItem(R.id.Filtres);
+                if(filterDispo){
+                    menuFiltre.setEnabled(true);
+                    menuFiltre.getIcon().setAlpha(255);
+                }
+                else{
+                    menuFiltre.setEnabled(false);
+                    menuFiltre.getIcon().setAlpha(130);
+                    if(findViewById(R.id.cardViewFilterListeArticles).getVisibility() == View.VISIBLE){
+                        collapse(cardViewFiltresListeVehicules);
+                    }
+                }
+                updateListe();
+                return true;
         }
         return false;
     }
@@ -308,7 +328,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                                         intentDetailVehiculeActivity.putExtra("Vehicule",vehicule);
                                         startActivity(intentDetailVehiculeActivity);
                                     }
-                                });
+                                },ListeVehiculesActivity.this);
                                 recyclerView.setAdapter(rvaa);
                             }
                         });
@@ -331,7 +351,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                                         intentDetailVehiculeActivity.putExtra("Vehicule",vehicule);
                                         startActivity(intentDetailVehiculeActivity);
                                     }
-                                });
+                                },ListeVehiculesActivity.this);
                                 recyclerView.setAdapter(rvaa);
                             }
                         });
@@ -343,7 +363,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    listeVehicules = db.vehiculeDAO().getFilterIndispo(Integer.valueOf(rangebarPrixJour.getLeftPinValue()),Integer.valueOf(rangebarPrixJour.getRightPinValue()),Integer.valueOf(rangebarNbPlaces.getLeftPinValue()),Integer.valueOf(rangebarNbPlaces.getRightPinValue()),Integer.valueOf(rangebarNbPortes.getLeftPinValue()),Integer.valueOf(rangebarNbPortes.getRightPinValue()),spinnerCarburantArray[spinnerCarburant.getSelectedItemPosition()],Integer.valueOf(rangebarCritAir.getRightPinValue()));
+                    listeVehicules = db.vehiculeDAO().getFilterIndispo();
                     ListeVehiculesActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -355,7 +375,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                                     intentDetailVehiculeActivity.putExtra("Vehicule",vehicule);
                                     startActivity(intentDetailVehiculeActivity);
                                 }
-                            });
+                            },ListeVehiculesActivity.this);
                             recyclerView.setAdapter(rvaa);
                         }
                     });

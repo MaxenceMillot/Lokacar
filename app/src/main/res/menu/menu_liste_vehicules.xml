@@ -3,16 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuSwitchDispo"
-        android:checked="true"
-        android:icon="@drawable/ic_directions_car_green_24dp"
-        android:title="switchDispo"
-        app:actionLayout="@layout/switch_item"
+        android:id="@+id/buttonFilterDispo"
+        android:checkable="true"
+        android:checked="false"
+        android:icon="@drawable/ic_directions_car_red_24dp"
+        android:title="buttonFilterDispo"
         app:showAsAction="always" />
     <item
         android:id="@+id/Filtres"
+        android:checkable="false"
+        android:enabled="true"
         android:icon="@drawable/ic_filter_list_white_24dp"
         android:title="Filtres"
+        android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/ChiffreAffaire"
