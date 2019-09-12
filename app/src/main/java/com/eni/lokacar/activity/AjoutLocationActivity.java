@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eni.lokacar.MainActivity;
 import com.eni.lokacar.R;
 import com.eni.lokacar.data.dal.AppDatabase;
 import com.eni.lokacar.data.model.Client;
@@ -47,7 +46,6 @@ public class AjoutLocationActivity extends AppCompatActivity {
     ArrayList<String> listePhotos = new ArrayList<>();
 
     private Vehicule vehiculeExtra;
-    private Client client;
     private Location location;
 
     @Override
@@ -60,7 +58,6 @@ public class AjoutLocationActivity extends AppCompatActivity {
         // Définition de du menu (toolbar) sans Titre
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Ajout Location");
 
         //TODO prise de photos
         editTextNom = findViewById(R.id.editTextNomClient);
@@ -118,15 +115,18 @@ public class AjoutLocationActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
                     DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+                    String message = "Bonjour "+  location.getClient().getPrenom()+ " "+ location.getClient().getNom()+", votre location chez Lokacar à été validé.\n\n" +
+                            "Vous avez réservé une "+vehiculeExtra.getMarque()+" "+vehiculeExtra.getModele()+
+                            " pour une durée de "+location.getNbJours()+" jours à compter du "+
+                            dateFormat.format(location.getDateDebut())+".\n\n"+
+                            "Bonne route.";
+
                     SmsManager manager = SmsManager.getDefault();
-                    manager.sendTextMessage(
-                            client.getTelephone(),
+                    ArrayList<String> parts = manager.divideMessage(message);
+                    manager.sendMultipartTextMessage(
+                            location.getClient().getTelephone(),
                             null,
-                            "Bonjour "+ client.getPrenom()+ " "+client.getNom()+", votre location chez Lokacar à été validé. \nVous avez réservé une "+
-                                    vehiculeExtra.getMarque()+ " "+vehiculeExtra.getModele()+" pour une durée de "+location.getNbJours()+" à compter du "+
-                                    dateFormat.format(location.getDateDebut())+".\n\n"+
-                                    "Tout retard sera majoré à la journée.\n\n"+
-                                    "Bonne route.",
+                            parts,
                             null, null);
 
                     Intent intentStartActivity = new Intent(AjoutLocationActivity.this, ListeVehiculesActivity.class);
@@ -144,6 +144,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_ajout, menu);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
@@ -157,7 +158,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // CREATE Client
-                    client = new Client(editTextNom.getText().toString(), editTextPrenom.getText().toString(), editTextTelephone.getText().toString());
+                    Client client = new Client(editTextNom.getText().toString().trim(), editTextPrenom.getText().toString().trim(), editTextTelephone.getText().toString().trim());
                     long clientId = db.clientDAO().insert(client);
                     client.setId(((int) clientId));
 

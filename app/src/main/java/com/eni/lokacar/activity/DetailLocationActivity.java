@@ -46,7 +46,6 @@ public class DetailLocationActivity extends AppCompatActivity {
         // Définition de du menu (toolbar) sans Titre
         Toolbar toolbar = findViewById(R.id.toolbarDetailLocation);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Détail Location");
 
         textViewDateDebut = findViewById(R.id.textViewDateDebut);
         textViewNbJours = findViewById(R.id.textViewNbJours);
@@ -99,6 +98,7 @@ public class DetailLocationActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_location, menu);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
