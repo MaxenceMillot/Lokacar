@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.eni.lokacar.R;
 import com.eni.lokacar.data.dal.AppDatabase;
 import com.eni.lokacar.data.model.Location;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ChiffreAffaireActivity extends AppCompatActivity {
@@ -32,11 +36,22 @@ public class ChiffreAffaireActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                chiffreAffaire = String.valueOf(db.locationDAO().getChiffreAffaire()+"€");
+                Calendar c = Calendar.getInstance();   // this takes current date
+                c.set(Calendar.DAY_OF_MONTH, 1);
+
+                String mois = c.getTime().toString();
+                Log.i(TAG, "LOG-- premier du mois: "+mois);
+
+
+                c.add(Calendar.MONTH, 1);
+                String moisPlusUn = c.getTime().toString();
+                Log.i(TAG, "LOG-- premier du mois+1: "+moisPlusUn);
+
+                //chiffreAffaire = String.valueOf(db.locationDAO().getChiffreAffaire()+"€");
                 ChiffreAffaireActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textViewChiffreAffaire.setText(chiffreAffaire);
+                        //textViewChiffreAffaire.setText(chiffreAffaire);
                     }
                 });
             }

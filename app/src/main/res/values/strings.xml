@@ -34,4 +34,6 @@
     <string name="location">Location</string>
     <string name="vehicule">Vehicule</string>
     <string name="chiffre_d_affaire">Chiffre d\'affaire</string>
+    <string name="afficher_la_location">Afficher la location</string>
+    <string name="louer">Louer</string>
 </resources>

@@ -72,17 +72,9 @@ public class AjoutLocationActivity extends AppCompatActivity {
             vehiculeExtra = getIntent().getParcelableExtra("vehicule");
         }else{
             // TODO ERROR HANDLING
-            Toast.makeText(this, "VehiculeExtra is NULL", Toast.LENGTH_SHORT).show();
-            //TODO remove debug default value
-            new Thread(new Runnable(){
-                @Override
-                public void run() {
-                    vehiculeExtra = new Vehicule("Twingo", "Renault", "Y0L0W4G", 39.99f, "path/to/photo", 3, 4, "Essence", 3, false, true, true);
-                    long idVehicule = db.vehiculeDAO().insert(vehiculeExtra);
-                    vehiculeExtra.setId((int)idVehicule);
-                    Log.i(TAG, "LOG -- VehiculeExtra created with ID: "+vehiculeExtra.getId()+" At "+new Date());
-                }
-            }).start();
+            Intent intent = new Intent(AjoutLocationActivity.this, ListeVehiculesActivity.class);
+            startActivity(intent);
+            Toast.makeText(AjoutLocationActivity.this, "Erreur: Aucun ID de véhicule", Toast.LENGTH_LONG).show();
         }
 
         editTextNbJours.addTextChangedListener(new TextWatcher() {
@@ -177,6 +169,11 @@ public class AjoutLocationActivity extends AppCompatActivity {
                             prix
                     );
                     long idLocation = db.locationDAO().insert(location);
+
+                    // UPDATE Vehicule isDispo
+                    vehiculeExtra.setDispo(false);
+
+                    db.vehiculeDAO().updateVehicule(vehiculeExtra);
 
                     // Confirmation par SMS
                     ActivityCompat.requestPermissions(AjoutLocationActivity.this,new String[]{Manifest.permission.SEND_SMS}, REQUEST_CODE);
