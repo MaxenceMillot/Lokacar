@@ -10,7 +10,7 @@
         android:id="@+id/cardViewFilterListeArticles"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarListeVehicules">
@@ -193,7 +193,7 @@
                 app:mrb_tickHeight="4dp"
                 app:mrb_tickInterval="10"
                 app:mrb_tickLabelSize="4sp"
-                app:mrb_tickStart="10" />
+                app:mrb_tickStart="0" />
 
             <TextView
                 android:id="@+id/textView"

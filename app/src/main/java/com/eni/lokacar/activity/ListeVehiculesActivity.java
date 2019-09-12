@@ -74,25 +74,25 @@ public class ListeVehiculesActivity extends AppCompatActivity {
 
         final ArrayList<Vehicule> listeVehicules = new ArrayList<>();
 
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Diesel",3,false,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,5,"Essence",1,true,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",30.99f,null,3,6,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",20.99f,null,3,5,"Diesel",3,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",50.99f,null,3,5,"Essence",1,true,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",60.99f,null,3,5,"Essence",1,false,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",70.99f,null,5,5,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,4,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,5,"Diesel",3,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,3,"Essence",1,true,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,5,"Essence",1,false,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,5,2,"Essence",1,false,true,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Diesel",3,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,true,false,false));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,8,"Essence",1,false,false,true));
-        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,null,3,5,"Essence",1,false,true,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Essence",1,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Diesel",3,false,false,false));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,5,5,"Essence",1,true,true,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",30.99f,3,6,"Essence",1,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",20.99f,3,5,"Diesel",3,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",50.99f,3,5,"Essence",1,true,true,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",60.99f,3,5,"Essence",1,false,false,false));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",70.99f,5,5,"Essence",1,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,4,"Essence",1,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Essence",1,false,true,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,5,5,"Diesel",3,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,3,"Essence",1,true,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,5,5,"Essence",1,false,false,false));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Essence",1,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,5,2,"Essence",1,false,true,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Diesel",3,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Essence",1,true,false,false));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,8,"Essence",1,false,false,true));
+        listeVehicules.add(new Vehicule("Rio","Kia","CN-968-HJ",40.99f,3,5,"Essence",1,false,true,true));
 
 //        new Thread(new Runnable() {
 //            @Override

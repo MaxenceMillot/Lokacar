@@ -77,7 +77,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
             new Thread(new Runnable(){
                 @Override
                 public void run() {
-                    vehiculeExtra = new Vehicule("Twingo", "Renault", "Y0L0W4G", 39.99f, "path/to/photo", 3, 4, "Essence", 3, false, true, true);
+                    vehiculeExtra = new Vehicule("Twingo", "Renault", "Y0L0W4G", 39.99f,  3, 4, "Essence", 3, false, true, true);
                     long idVehicule = db.vehiculeDAO().insert(vehiculeExtra);
                     vehiculeExtra.setId((int)idVehicule);
                     Log.i(TAG, "LOG -- VehiculeExtra created with ID: "+vehiculeExtra.getId()+" At "+new Date());
