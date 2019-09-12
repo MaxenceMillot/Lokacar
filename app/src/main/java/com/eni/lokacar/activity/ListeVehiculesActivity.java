@@ -84,9 +84,9 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                     parker.setId((int)db.clientDAO().insert(parker));
                     musk.setId((int)db.clientDAO().insert(musk));
 
-                    Vehicule batmobile = new Vehicule("Mobile", "Bat", "B4TM4N", 999.99f, 2, 2, "Diesel", 5, false, false, false);
-                    Vehicule busScolaire = new Vehicule("Scolaire", "Bus", "T0B3Y", 12.25f, 2, 9, "Diesel", 5, false, false, false);
-                    Vehicule tesla = new Vehicule("Model S", "Tesla", "SP4C3X", 98f, 5, 5, "Électricité", 1, false, false, false);
+                    Vehicule batmobile = new Vehicule("Mobile", "Bat", "B4TM4N", 999.99f, 2, 2, "Diesel", 5, false, false, true);
+                    Vehicule busScolaire = new Vehicule("Scolaire", "Bus", "T0B3Y", 12.25f, 2, 9, "Diesel", 5, false, false, true);
+                    Vehicule tesla = new Vehicule("Model S", "Tesla", "SP4C3X", 98f, 5, 5, "Électrique", 1, false, false, false);
                     Vehicule kykymobile = new Vehicule("mobile", "kyky", "F4LC0N", 72f, 5, 5, "Essence", 2, true, false, true);
                     Vehicule twingo = new Vehicule("Twingo", "Renault", "SW4G", 28.75f, 3, 4, "Essence", 3, false, true, true);
                     Vehicule deLorean = new Vehicule("DeLorean DMC-12", "DMC", "Z3U5", 125.75f, 2, 2, "Essence", 5, false, false, true);
@@ -118,8 +118,16 @@ public class ListeVehiculesActivity extends AppCompatActivity {
 
                     Location loc1 = new Location(batmobile, wayne, dateDebut, dateFin, 12, 11999.88f);
                     Location loc2 = new Location(busScolaire, parker, dateDebut, dateFin, 12, 147f);
-                    Location loc3 = new Location(tesla, musk, dateDebut, dateFin, 12, 1176f);
+                    Location loc3 = new Location(tesla, musk, dateDebut, null, 12, 1176f);
                     db.locationDAO().insertAll(loc1, loc2, loc3);
+
+                    ListeVehiculesActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateListe();
+
+                        }
+                    });
                 }
             }
         }).start();
