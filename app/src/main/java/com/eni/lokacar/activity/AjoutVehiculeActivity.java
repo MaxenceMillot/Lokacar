@@ -36,9 +36,9 @@ import java.util.Random;
 
 public class AjoutVehiculeActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_PHOTO = 1;
-    String[] spinnerCarburantArray = new String[]{"Essence", "Diesel", "Électrique", "GPL", "Hydrogène"};
+    String[] spinnerCarburantArray = new String[]{"Essence", "Diesel", "Électricité", "GPL", "Hydrogène"};
     String[] spinnerCritAirArray = new String[]{"0", "1", "2", "3", "4", "5"};
-    String[] spinnerNbPlacesArray = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
+    String[] spinnerNbPlacesArray = new String[]{"1", "2", "3", "4", "5", "6", "7", "8","9"};
     String[] spinnerNbPortesArray = new String[]{"2", "3", "4", "5", "6"};
     EditText editTextMarque, editTextModele, editTextPlaque, editTextPrixJour;
     Spinner spinnerCarburant, spinnerCritAir, spinnerNbPlaces, spinnerNbPortes;

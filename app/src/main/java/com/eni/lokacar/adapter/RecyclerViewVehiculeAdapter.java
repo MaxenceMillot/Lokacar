@@ -18,12 +18,14 @@ import java.util.ArrayList;
 public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerViewVehiculeAdapter.VehiculeViewHolder> {
     ArrayList<Vehicule> listVehicule;
     OnItemClickListener listener;
+    Context context;
 
     public class VehiculeViewHolder extends RecyclerView.ViewHolder{
         TextView textViewMarque;
         TextView textViewModele;
         TextView textViewPlaque;
         TextView textViewPrixJour;
+        View viewColorDispo;
 
         public VehiculeViewHolder(@NonNull View itemView){
             super(itemView);
@@ -31,6 +33,7 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
             textViewModele = itemView.findViewById(R.id.textViewModele);
             textViewPlaque = itemView.findViewById(R.id.textViewPlaque);
             textViewPrixJour = itemView.findViewById(R.id.textViewPrixJour);
+            viewColorDispo = itemView.findViewById(R.id.viewColorDispo);
         }
     }
 
@@ -38,9 +41,10 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
         this.listener = listener;
     }
 
-    public RecyclerViewVehiculeAdapter(ArrayList<Vehicule> listVehicule, OnItemClickListener listener){
+    public RecyclerViewVehiculeAdapter(ArrayList<Vehicule> listVehicule, OnItemClickListener listener,Context context){
         this.listVehicule = listVehicule;
         this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -53,10 +57,12 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(@NonNull VehiculeViewHolder holder, int position) {
         final Vehicule vehiculeAAfficher = listVehicule.get(position);
+
         holder.textViewMarque.setText(listVehicule.get(position).getMarque());
         holder.textViewModele.setText(listVehicule.get(position).getModele());
         holder.textViewPlaque.setText(listVehicule.get(position).getPlaque());
         holder.textViewPrixJour.setText(Float.toString(listVehicule.get(position).getPrixJour())+"€/Jour");
+        holder.viewColorDispo.setBackgroundColor(listVehicule.get(position).isDispo()?context.getResources().getColor(R.color.colorGreen):context.getResources().getColor(R.color.colorRed));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

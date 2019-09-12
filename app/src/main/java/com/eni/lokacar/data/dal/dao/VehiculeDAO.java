@@ -8,6 +8,8 @@ import androidx.room.Update;
 
 import com.eni.lokacar.data.model.Vehicule;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -47,16 +49,8 @@ public interface VehiculeDAO {
 
     // dispo
     @Query("SELECT * FROM Vehicule" +
-            " WHERE isDispo = 0" +
-            " AND prixJour >= :prixMin" +
-            " AND prixJour <= :prixMax" +
-            " AND nbPlace >= :placesMin" +
-            " AND nbPlace <= :placesMax" +
-            " AND nbPorte >= :portesMin" +
-            " AND nbPorte <= :portesMax" +
-            " AND carburant LIKE :carburant" +
-            " AND critair <= :critair")
-    List<Vehicule> getFilterIndispo(int prixMin, int prixMax, int placesMin, int placesMax, int portesMin, int portesMax, String carburant, int critair);
+            " WHERE isDispo = 0")
+    List<Vehicule> getFilterIndispo();
 
     @Insert
     long insert(Vehicule vehicule);
