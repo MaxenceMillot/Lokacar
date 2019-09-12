@@ -160,8 +160,8 @@ public class AjoutLocationActivity extends AppCompatActivity {
                     location = new Location(
                             vehiculeExtra,
                             client,
-                            null,
                             new Date(),
+                            null,
                             nbJours,
                             prix
                     );

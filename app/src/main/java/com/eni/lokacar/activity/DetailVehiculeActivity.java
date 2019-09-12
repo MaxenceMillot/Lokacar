@@ -24,7 +24,7 @@ public class DetailVehiculeActivity extends AppCompatActivity {
 
     Vehicule vehicule;
     TextView textViewMarque,textViewModele,textViewPlaque,textViewPrix,textViewCarburant,textViewCritAir,textViewNbPortes,textViewNbPlaces;
-    Button buttonRendre,buttonLouer;
+    Button buttonDetaiLocation,buttonLouer;
     ImageView imageViewDetailVehicule,imageViewCitadine,imageViewAttelage;
     AppDatabase db ;
     @Override
@@ -46,7 +46,7 @@ public class DetailVehiculeActivity extends AppCompatActivity {
         imageViewAttelage = findViewById(R.id.imageViewAttelage);
         imageViewDetailVehicule = findViewById(R.id.imageViewDetailVehicule);
         buttonLouer = findViewById(R.id.buttonLouer);
-        buttonRendre = findViewById(R.id.buttonRendre);
+        buttonDetaiLocation = findViewById(R.id.buttonDetailLocation);
 
 
         StringBuilder text = new StringBuilder();
@@ -94,30 +94,28 @@ public class DetailVehiculeActivity extends AppCompatActivity {
 
         if(vehicule.isDispo()){
             buttonLouer.setVisibility(View.VISIBLE);
-            buttonRendre.setVisibility(View.GONE);
+            buttonDetaiLocation.setVisibility(View.GONE);
         }
         else{
             buttonLouer.setVisibility(View.GONE);
-            buttonRendre.setVisibility(View.VISIBLE);
+            buttonDetaiLocation.setVisibility(View.VISIBLE);
         }
 
         buttonLouer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentToAjoutLocationActivity = new Intent(DetailVehiculeActivity.this,AjoutLocationActivity.class);
-                intentToAjoutLocationActivity.putExtra("Vehicule",vehicule);
+                Intent intentToAjoutLocationActivity = new Intent(DetailVehiculeActivity.this, AjoutLocationActivity.class);
+                intentToAjoutLocationActivity.putExtra("vehicule",vehicule);
                 startActivity(intentToAjoutLocationActivity);
             }
         });
 
-        buttonRendre.setOnClickListener(new View.OnClickListener() {
+        buttonDetaiLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Location location = db.locationDAO().getLastByVehicule(vehicule.getId());
-                location.setDateFin(new Date());
-                db.locationDAO().updateLocation(location);
-                vehicule.setDispo(true);
-                db.vehiculeDAO().updateVehicule(vehicule);
+                Intent intentToDetailLocationActivity = new Intent(DetailVehiculeActivity.this, DetailLocationActivity.class);
+                intentToDetailLocationActivity .putExtra("vehicule",vehicule);
+                startActivity(intentToDetailLocationActivity );
             }
         });
     }

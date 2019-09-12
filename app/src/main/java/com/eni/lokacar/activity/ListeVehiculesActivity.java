@@ -84,8 +84,6 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                     parker.setId((int)db.clientDAO().insert(parker));
                     musk.setId((int)db.clientDAO().insert(musk));
 
-
-
                     Vehicule batmobile = new Vehicule("Mobile", "Bat", "B4TM4N", 999.99f, 2, 2, "Diesel", 5, false, false, false);
                     Vehicule busScolaire = new Vehicule("Scolaire", "Bus", "T0B3Y", 12.25f, 2, 9, "Diesel", 5, false, false, false);
                     Vehicule tesla = new Vehicule("Model S", "Tesla", "SP4C3X", 98f, 5, 5, "Électricité", 1, false, false, false);
@@ -122,11 +120,9 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                     Location loc2 = new Location(busScolaire, parker, dateDebut, dateFin, 12, 147f);
                     Location loc3 = new Location(tesla, musk, dateDebut, dateFin, 12, 1176f);
                     db.locationDAO().insertAll(loc1, loc2, loc3);
-
                 }
             }
         }).start();
-
 
         spinnerCarburant.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
