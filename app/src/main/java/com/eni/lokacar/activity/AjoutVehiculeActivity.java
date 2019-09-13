@@ -53,6 +53,8 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
     Switch switchCitadine, switchAttelage;
     Button buttonPhoto;
     ImageView imageViewAjoutVoiture;
+    Vehicule vehicule;
+    boolean isEdit = false;
     private File tempProfileImageFile;
 
     @Override
@@ -63,6 +65,7 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbarAjoutVehicule));
 
         db = Room.databaseBuilder(this, AppDatabase.class, "LokacarBDD").build();
+
 
         editTextMarque = findViewById(R.id.editTextMarque);
         editTextModele = findViewById(R.id.editTextModele);
@@ -108,6 +111,48 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
                 startCamera();
             }
         });
+
+        if(getIntent().hasExtra("vehicule"))
+        {
+            vehicule = getIntent().getParcelableExtra("vehicule");
+            isEdit = true;
+            int carburantPosition = 0;
+            int critAirPosition = 0;
+            int nbPortesPosition = 0;
+            int nbPlacesPosition = 0;
+            for(int i=0; i < spinnerCarburantArray.length; i++)
+                if(spinnerCarburantArray[i].contains( vehicule.getCarburant()))
+                    carburantPosition = i;
+            for(int i=0; i < spinnerCritAirArray.length; i++)
+                if(spinnerCritAirArray[i].contains(String.valueOf(vehicule.getCritair())))
+                    critAirPosition = i;
+            for(int i=0; i < spinnerNbPortesArray.length; i++)
+                if(spinnerNbPortesArray[i].contains(String.valueOf(vehicule.getNbPorte())))
+                    nbPortesPosition = i;
+            for(int i=0; i < spinnerNbPlacesArray.length; i++)
+                if(spinnerNbPlacesArray[i].contains(String.valueOf(vehicule.getNbPlace())))
+                    nbPlacesPosition = i;
+            editTextMarque.setText(vehicule.getMarque());
+            editTextModele.setText(vehicule.getModele());
+            editTextPlaque.setText(vehicule.getPlaque());
+            editTextPrixJour.setText(String.valueOf(vehicule.getPrixJour()));
+
+            spinnerCarburant.setSelection(carburantPosition);
+            spinnerCritAir.setSelection(critAirPosition);
+            spinnerNbPlaces.setSelection(nbPlacesPosition);
+            spinnerNbPortes.setSelection(nbPortesPosition);
+            switchCitadine.setChecked(vehicule.isCitadine());
+            switchAttelage.setChecked(vehicule.isAttelage());
+            File image = new File(this.getApplicationContext().getFilesDir(),  vehicule.getId()+".jpg");
+            if(image.exists()){
+                imageViewAjoutVoiture.setImageURI(Uri.fromFile(image));
+            }
+            else
+            {
+                imageViewAjoutVoiture.setImageDrawable(getApplicationContext().getDrawable(R.mipmap.ic_launcher));
+            }
+
+        }
     }
 
 
@@ -131,12 +176,35 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
             int nbPortes = Integer.valueOf(spinnerNbPortesArray[spinnerNbPortes.getSelectedItemPosition()]);
             Boolean citadine = switchCitadine.isChecked();
             Boolean attelage = switchAttelage.isChecked();
-            final Vehicule vehicule = new Vehicule(modele,marque,plaque,prixJour,nbPortes,nbPlaces,carburant,critAir,attelage,citadine,true);
+            if(!isEdit){
+                vehicule = new Vehicule(modele, marque, plaque, prixJour, nbPortes, nbPlaces, carburant, critAir, attelage, citadine, true);
+            }
+            else
+            {
+                vehicule.setMarque(marque);
+                vehicule.setModele(modele);
+                vehicule.setPlaque(plaque);
+                vehicule.setPrixJour(prixJour);
+                vehicule.setCarburant(carburant);
+                vehicule.setCritair(critAir);
+                vehicule.setNbPlace(nbPlaces);
+                vehicule.setNbPorte(nbPortes);
+                vehicule.setCitadine(citadine);
+                vehicule.setAttelage(attelage);
+            }
             //TODO ajouter le véhicule créé en base
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    long id = db.vehiculeDAO().insert(vehicule);
+                    long id = 0;
+                    if(isEdit)
+                    {
+                        db.vehiculeDAO().updateVehicule(vehicule);
+                        id = vehicule.getId();
+                    }
+                    else{
+                        id = db.vehiculeDAO().insert(vehicule);
+                    }
                     File oldFile = getApplicationContext().getFileStreamPath("tempImage.jpg");
                     File newFile = getApplicationContext().getFileStreamPath(id+".jpg");
                     oldFile.renameTo(newFile);
@@ -145,7 +213,13 @@ public class AjoutVehiculeActivity extends AppCompatActivity {
                         public void run() {
                             Intent intent = new Intent(AjoutVehiculeActivity.this, ListeVehiculesActivity.class);
                             startActivity(intent);
-                            Toast.makeText(AjoutVehiculeActivity.this, "Vehicule ajouté avec succès", Toast.LENGTH_LONG).show();
+                            if(isEdit){
+                                Toast.makeText(AjoutVehiculeActivity.this, "Vehicule modifié avec succès", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(AjoutVehiculeActivity.this, "Vehicule ajouté avec succès", Toast.LENGTH_LONG).show();
+                            }
+
                         }
                     });
                 }

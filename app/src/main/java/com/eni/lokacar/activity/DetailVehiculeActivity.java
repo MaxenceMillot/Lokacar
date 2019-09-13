@@ -1,12 +1,16 @@
 package com.eni.lokacar.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,7 +25,7 @@ import java.io.File;
 import java.util.Date;
 
 public class DetailVehiculeActivity extends AppCompatActivity {
-
+    private static final String TAG = "DetailVehiculeActivity";
     Vehicule vehicule;
     TextView textViewMarque,textViewModele,textViewPlaque,textViewPrix,textViewCarburant,textViewCritAir,textViewNbPortes,textViewNbPlaces;
     Button buttonDetaiLocation,buttonLouer;
@@ -31,9 +35,9 @@ public class DetailVehiculeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_vehicule);
-
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbarDetailVehicule));
         db = Room.databaseBuilder(this, AppDatabase.class, "LokacarBDD").build();
-        final Vehicule vehicule = getIntent().getParcelableExtra("Vehicule");
+        vehicule = getIntent().getParcelableExtra("vehicule");
         textViewMarque = findViewById(R.id.textViewMarque);
         textViewModele = findViewById(R.id.textViewModele);
         textViewPlaque = findViewById(R.id.textViewPlaque);
@@ -96,5 +100,40 @@ public class DetailVehiculeActivity extends AppCompatActivity {
                 startActivity(intentToDetailLocationActivity );
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_detail_vehicule, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.Delete:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i(TAG, "delete "+vehicule.getId());
+                        db.vehiculeDAO().delete(vehicule);
+                        DetailVehiculeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(DetailVehiculeActivity.this,ListeVehiculesActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }).start();
+                return true;
+            case R.id.Edit:
+                Intent intent = new Intent(DetailVehiculeActivity.this,AjoutVehiculeActivity.class);
+                intent.putExtra("vehicule",vehicule);
+                startActivity(intent);
+                return true;
+        }
+        return false;
     }
 }

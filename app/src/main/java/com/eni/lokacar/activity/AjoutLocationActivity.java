@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -55,7 +54,7 @@ public class AjoutLocationActivity extends AppCompatActivity {
         db = Room.databaseBuilder(this, AppDatabase.class, "LokacarBDD").build();
 
         // Définition de du menu (toolbar) sans Titre
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarDetailVehicule);
         setSupportActionBar(toolbar);
 
         //TODO prise de photos

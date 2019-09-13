@@ -354,7 +354,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemClick(Vehicule vehicule) {
                                         Intent intentDetailVehiculeActivity = new Intent(ListeVehiculesActivity.this, DetailVehiculeActivity.class);
-                                        intentDetailVehiculeActivity.putExtra("Vehicule",vehicule);
+                                        intentDetailVehiculeActivity.putExtra("vehicule",vehicule);
                                         startActivity(intentDetailVehiculeActivity);
                                     }
                                 },ListeVehiculesActivity.this);
@@ -377,7 +377,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemClick(Vehicule vehicule) {
                                         Intent intentDetailVehiculeActivity = new Intent(ListeVehiculesActivity.this, DetailVehiculeActivity.class);
-                                        intentDetailVehiculeActivity.putExtra("Vehicule",vehicule);
+                                        intentDetailVehiculeActivity.putExtra("vehicule",vehicule);
                                         startActivity(intentDetailVehiculeActivity);
                                     }
                                 },ListeVehiculesActivity.this);
@@ -401,7 +401,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                                 @Override
                                 public void onItemClick(Vehicule vehicule) {
                                     Intent intentDetailVehiculeActivity = new Intent(ListeVehiculesActivity.this, DetailVehiculeActivity.class);
-                                    intentDetailVehiculeActivity.putExtra("Vehicule",vehicule);
+                                    intentDetailVehiculeActivity.putExtra("vehicule",vehicule);
                                     startActivity(intentDetailVehiculeActivity);
                                 }
                             },ListeVehiculesActivity.this);
