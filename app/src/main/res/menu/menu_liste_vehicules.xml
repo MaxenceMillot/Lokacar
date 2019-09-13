@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/buttonFilterDispo"
+        android:checkable="true"
+        android:checked="false"
+        android:icon="@drawable/ic_directions_car_red_24dp"
+        android:title="buttonFilterDispo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/Filtres"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_filter_list_white_24dp"
+        android:title="Filtres"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ChiffreAffaire"
+        android:icon="@drawable/ic_monetization_on_white_24dp"
+        android:title="ChiffreAffaire"
+        app:showAsAction="always" />
+</menu>
