@@ -2,6 +2,7 @@ package com.eni.lokacar.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,7 +107,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                     c4.setId((int)db.vehiculeDAO().insert(c4));
 
                     Calendar c = Calendar.getInstance();
-                    c.set(Calendar.MONTH, 8);
+                    c.add(Calendar.MONTH, -1);
                     c.set(Calendar.DAY_OF_MONTH, 4);
                     long timeStampDebut = c.getTimeInMillis();
                     c.set(Calendar.DAY_OF_MONTH, 16);
@@ -115,6 +116,7 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                     dateDebut.setTime(timeStampDebut);
                     Date dateFin = new Date();
                     dateFin.setTime(timeStampFin);
+
 
                     Location loc1 = new Location(batmobile, wayne, dateDebut, dateFin, 12, 11999.88f);
                     Location loc2 = new Location(busScolaire, parker, dateDebut, dateFin, 12, 147f);
@@ -125,7 +127,6 @@ public class ListeVehiculesActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             updateListe();
-
                         }
                     });
                 }
