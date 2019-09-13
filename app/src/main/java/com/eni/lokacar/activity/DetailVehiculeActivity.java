@@ -49,36 +49,14 @@ public class DetailVehiculeActivity extends AppCompatActivity {
         buttonDetaiLocation = findViewById(R.id.buttonDetailLocation);
 
 
-        StringBuilder text = new StringBuilder();
-        text.append("La "+vehicule.getModele()+" de "+vehicule.getMarque()+" est un véhicule formidable. \n" +
-                "Possédant "+vehicule.getNbPlace()+" places et "+vehicule.getNbPorte()+" portes, il vous emmenera partout.\n " +
-                "Son moteur très économique de Crit'Air "+vehicule.getCritair()+"fonctionne ");
-
-        if("Essence".equals(vehicule.getCarburant())||"Électricité".equals(vehicule.getCarburant())||"Hydrogène".equals(vehicule.getCarburant())){
-            text.append("à l'");
-        }
-        else{
-            text.append("au ");
-        }
-        text.append(vehicule.getCarburant() +" Cette ");
-
-        if(vehicule.isCitadine()){
-            text.append("citadine ");
-        }else{
-            text.append("voiture ");
-        }
-
-        if(vehicule.isAttelage()){
-            text.append("possède une fixation pour un attelage et ");
-        }
-
-        if(vehicule.isDispo()){
-            text.append("est disponnible à la location");
-        }else{
-            text.append("est actuellement louée");
-        }
         File image = new File(this.getApplicationContext().getFilesDir(),  vehicule.getId()+".jpg");
-        imageViewDetailVehicule.setImageURI(Uri.fromFile(image));
+        if(image.exists()){
+            imageViewDetailVehicule.setImageURI(Uri.fromFile(image));
+        }
+        else
+        {
+            imageViewDetailVehicule.setImageDrawable(getApplicationContext().getDrawable(R.mipmap.ic_launcher));
+        }
         textViewMarque.setText(vehicule.getMarque());
         textViewModele.setText(vehicule.getModele());
         textViewPlaque.setText(vehicule.getPlaque());

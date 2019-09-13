@@ -70,7 +70,13 @@ public class RecyclerViewVehiculeAdapter extends RecyclerView.Adapter<RecyclerVi
         holder.textViewPrixJour.setText(Float.toString(listVehicule.get(position).getPrixJour())+"€/Jour");
         holder.viewColorDispo.setBackgroundColor(listVehicule.get(position).isDispo()?context.getResources().getColor(R.color.colorGreen):context.getResources().getColor(R.color.colorRed));
         File image = new File(this.context.getFilesDir(),  listVehicule.get(position).getId()+".jpg");
-        holder.imageViewElementListVehicule.setImageURI(Uri.fromFile(image));
+        if(image.exists()){
+            holder.imageViewElementListVehicule.setImageURI(Uri.fromFile(image));
+        }
+        else
+        {
+            holder.imageViewElementListVehicule.setImageDrawable(context.getDrawable(R.mipmap.ic_launcher));
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
